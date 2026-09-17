@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "2026.09.0-sample",
+  "releaseSeq": 1,
+  "publishedAt": "2026-09-17T12:00:00Z",
+  "questions": [
+    { "id": "ml-001", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este un vis pe care nu l-ai spus încă cu voce tare?", "en": "What is a dream you have not said out loud yet?", "hu": null },
+    { "id": "ml-002", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce loc din lume ai vrea să vezi măcar o dată?", "en": "What place in the world would you like to see at least once?", "hu": null },
+    { "id": "ml-003", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Dacă ai avea o zi liberă complet, fără obligații, cum ai petrece-o?", "en": "If you had a completely free day, with no obligations, how would you spend it?", "hu": null },
+    { "id": "ml-004", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce hobby ai vrea să încerci, dar nu ai apucat încă?", "en": "What hobby would you like to try but have not got around to yet?", "hu": null },
+    { "id": "ml-005", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este cea mai frumoasă amintire din ultimul an?", "en": "What is your best memory from the past year?", "hu": null },
+    { "id": "ml-006", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce te face să pierzi noțiunea timpului?", "en": "What makes you lose track of time?", "hu": null },
+    { "id": "ml-007", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce abilitate ai vrea să stăpânești peste cinci ani?", "en": "What skill would you like to master five years from now?", "hu": null },
+    { "id": "ml-008", "category": "me_life_dreams", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este o carte sau un film care te-a marcat?", "en": "What is a book or film that left a mark on you?", "hu": null },
+
+    { "id": "va-001", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce valoare personală nu ai negocia niciodată?", "en": "What personal value would you never negotiate?", "hu": null },
+    { "id": "va-002", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cine este o persoană pe care o admiri și de ce?", "en": "Who is someone you admire, and why?", "hu": null },
+    { "id": "va-003", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce înseamnă pentru tine să faci un lucru bine?", "en": "What does doing something well mean to you?", "hu": null },
+    { "id": "va-004", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este un principiu după care încerci să te ghidezi zilnic?", "en": "What is a principle you try to live by every day?", "hu": null },
+    { "id": "va-005", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce te face să ai încredere într-un om?", "en": "What makes you trust a person?", "hu": null },
+    { "id": "va-006", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este un compliment pe care nu l-ai uitat?", "en": "What is a compliment you have never forgotten?", "hu": null },
+    { "id": "va-007", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce sfat primit cândva îl dai mai departe și astăzi?", "en": "What advice you once received do you still pass on today?", "hu": null },
+    { "id": "va-008", "category": "values", "active": true, "source": "2026", "presentationSafe": true, "ro": "Când ai simțit ultima dată că ai făcut ceea ce trebuia, chiar dacă era greu?", "en": "When did you last feel you did the right thing, even though it was hard?", "hu": null },
+
+    { "id": "pg-001", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai învățat recent și te-a surprins?", "en": "What have you learned recently that surprised you?", "hu": null },
+    { "id": "pg-002", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este o greșeală din care ai învățat cel mai mult?", "en": "What is a mistake you learned the most from?", "hu": null },
+    { "id": "pg-003", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce obicei mic ți-a schimbat ziua în bine?", "en": "What small habit has changed your day for the better?", "hu": null },
+    { "id": "pg-004", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce te-a scos ultima dată din zona de confort?", "en": "What last took you out of your comfort zone?", "hu": null },
+    { "id": "pg-005", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai face diferit dacă ai relua un proiect din trecut?", "en": "What would you do differently if you redid a past project?", "hu": null },
+    { "id": "pg-006", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce întrebare îți pui des în ultima vreme?", "en": "What question have you been asking yourself often lately?", "hu": null },
+    { "id": "pg-007", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cum îți place să înveți lucruri noi: citind, ascultând sau făcând?", "en": "How do you like to learn new things: by reading, listening or doing?", "hu": null },
+    { "id": "pg-008", "category": "personal_growth", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai renunțat să mai faci și nu îți lipsește deloc?", "en": "What have you stopped doing that you do not miss at all?", "hu": null },
+
+    { "id": "re-001", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cine te-a ajutat să ajungi unde ești astăzi?", "en": "Who helped you get to where you are today?", "hu": null },
+    { "id": "re-002", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce te face să te simți binevenit într-o echipă nouă?", "en": "What makes you feel welcome in a new team?", "hu": null },
+    { "id": "re-003", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cum preferi să primești feedback?", "en": "How do you prefer to receive feedback?", "hu": null },
+    { "id": "re-004", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care este cel mai bun mod de a-i mulțumi unui coleg?", "en": "What is the best way to thank a colleague?", "hu": null },
+    { "id": "re-005", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai învățat de la un coleg în ultima lună?", "en": "What have you learned from a colleague in the past month?", "hu": null },
+    { "id": "re-006", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cum recunoști o conversație bună?", "en": "How do you recognise a good conversation?", "hu": null },
+    { "id": "re-007", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce te-a făcut să râzi cu poftă săptămâna aceasta?", "en": "What made you laugh out loud this week?", "hu": null },
+    { "id": "re-008", "category": "relationships", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cui ai vrea să îi spui mulțumesc, dar încă nu ai făcut-o?", "en": "Who would you like to say thank you to, but have not yet?", "hu": null },
+
+    { "id": "pr-001", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce parte din munca ta îți dă cea mai multă energie?", "en": "What part of your work gives you the most energy?", "hu": null },
+    { "id": "pr-002", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care a fost un moment recent de mândrie profesională?", "en": "What was a recent moment of professional pride?", "hu": null },
+    { "id": "pr-003", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai vrea să afle colegii despre ceea ce faci tu?", "en": "What would you like your colleagues to know about what you do?", "hu": null },
+    { "id": "pr-004", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce instrument sau proces ți-a ușurat cel mai mult munca?", "en": "What tool or process has made your work easier the most?", "hu": null },
+    { "id": "pr-005", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Cum arată pentru tine o zi de lucru reușită?", "en": "What does a successful working day look like for you?", "hu": null },
+    { "id": "pr-006", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce ai simplifica mâine dacă ai putea?", "en": "What would you simplify tomorrow if you could?", "hu": null },
+    { "id": "pr-007", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Care a fost primul tău job și ce ai luat cu tine de acolo?", "en": "What was your first job, and what did you take with you from it?", "hu": null },
+    { "id": "pr-008", "category": "professional", "active": true, "source": "2026", "presentationSafe": true, "ro": "Ce problemă a clienților ți-ar plăcea să o rezolvi o dată pentru totdeauna?", "en": "What customer problem would you love to solve once and for all?", "hu": null }
+  ]
+}
