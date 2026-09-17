@@ -1,6 +1,6 @@
 # Autonom Icebreakers
 
-Internal Confidential · v0.1.0 (prototype, sample content) · 2026-09-17 · initiated-by: claude-code
+Internal Confidential · v0.1.1 (prototype, sample content) · 2026-09-17 · initiated-by: claude-code
 
 A single-screen Progressive Web App that replaces Autonom's physical ice-breaker question cards. A facilitator opens it on a phone (or shares it on a screen), shows one question, reads it aloud, moves on. Romanian and English, works offline after one online visit, no login, no accounts, no analytics.
 
@@ -21,7 +21,7 @@ A single-screen Progressive Web App that replaces Autonom's physical ice-breaker
 
 ## Run it
 
-Node 20+ and npm.
+Node **22.12+** (the locked Vitest requires it; `package.json` declares `engines`) and npm.
 
 ```bash
 npm install
@@ -98,7 +98,9 @@ The app never reads the editorial sheet. Content flows **sheet → validated rel
 
 ### Validation rules (client and CLI share `src/content/validate.js`)
 
-A release is rejected as a whole on: unknown top-level field · `schemaVersion !== 1` · non-integer `releaseSeq` · duplicate `id` · unknown `category` · non-boolean `active` · empty/whitespace `ro` or `en` · `ro === en` · any HTML tag · duplicate wording within a language (case-, diacritic- and punctuation-insensitive) · zero active questions. A wording longer than 220 characters is a warning.
+A release is rejected as a whole on: unknown top-level field · **unknown or missing question field** (editorial columns such as `alternatives`, `notes`, `owner` never ship) · `schemaVersion !== 1` · `releaseSeq` not a positive integer · duplicate `id` · unknown `category` · non-boolean `active` · empty/whitespace `ro` or `en` · `ro === en` · any HTML tag in **any** string field · duplicate wording within a language (case-, diacritic- and punctuation-insensitive) · zero active questions. A wording longer than 220 characters is a warning.
+
+The app additionally refuses a manifest whose `questionsUrl` is not a version-named `questions-*.json` file in its own `data/` directory on the same origin (no query, no fragment, no redirects), or whose `contentVersion` differs from the file's.
 
 ```bash
 node scripts/validate-content.mjs public/data/questions-2026.10.0.json
@@ -134,7 +136,7 @@ Aplicația nu colectează date personale: fără cont, fără analytics, fără 
 
 The app collects no personal data: no account, no analytics, no cookies. Language, favourites and history stay on this device. The hosting server keeps minimal technical access logs.
 
-Technically: no cookies, no third-party requests (fonts are self-hosted), no analytics or crash SDK. The only network calls after install are `data/manifest.json` and the release file it points at. Local state lives in one `localStorage` key (`autonom-icebreakers-v1`) and one Cache Storage cache (`autonom-icebreakers-content`) plus the service-worker precache. "Reset local data" in the About sheet clears favourites and history.
+Technically: no cookies, no third-party requests (fonts are self-hosted), no analytics or crash SDK. The only network calls after install are `data/manifest.json` and the same-origin release file it points at. Local state lives in one `localStorage` key (`autonom-icebreakers-v1`) and in Cache Storage: `autonom-icebreakers-content` (validated releases + pointer), `content-files` (Workbox runtime cache of downloaded release files, max 6, with its `workbox-expiration` IndexedDB bookkeeping) and the `workbox-precache-*` app-shell cache. "Reset local data" in the About sheet clears favourites and history (localStorage only).
 
 ## Non-goals (v1)
 
@@ -166,7 +168,11 @@ Every control is a real `<button>` with a visible focus ring; hit targets are �
 
 ## Verification notes (2026-09-17, prototype build)
 
-Verified in the build environment: `npm run build` exit 0 · `npm test` green (deck, storage, validation + CLI pass/fail, update pipeline incl. rollback and every ignore case) · RO/EN toggle never draws and sets `<html lang>` · global no-repeat across category ↔ all · category exhaustion → All remaining / Restart · prev/next history walk · favourites browse without drawing · present mode hides chrome and starts off on relaunch · reload restores the last card · reset local data · publishing `releaseSeq` 2 → banner with the card unchanged → active after reload · rollback (seq 3 → older file) → active after reload · bad checksum / wrong schema / invalid content ignored · dark and light schemes · phone and tablet layouts · console output limited to `deck <contentVersion>` · no requests beyond app assets, `manifest.json` and release files.
+Verified in the build environment: `npm run build` exit 0 · `npm test` green — deck, storage, validation + CLI pass/fail, update pipeline (upgrade, rollback, bad checksum, wrong schema, invalid content, version mismatch, off-origin/traversal URLs never fetched, stalled body timeout, cleanup failure after commit, older download finishing after a newer commit, canonical-field storage), App mount persistence · RO/EN toggle never draws and sets `<html lang>` · global no-repeat across category ↔ all · category exhaustion → All remaining / Restart · prev/next history walk · favourites browse without drawing · present mode hides chrome and starts off on relaunch · reload restores the last card · reset local data · publishing a higher `releaseSeq` → banner with the card unchanged → active after reload · rollback (higher seq → older file) → active after reload · dark and light schemes · phone and tablet layouts · console output limited to `deck <contentVersion>` · no requests beyond app assets, `manifest.json` and release files.
+
+Not covered by tests: Cache Storage quota denial / `put()` failure (the code path keeps last-known-good by construction, not by test), the code-update (waiting worker) lifecycle, real touch gestures.
+
+**Independent review:** `reviews/2026-09-17_review_codex_v1.0.md` (Codex, against v0.1.0). v0.1.1 addresses its findings F1–F13 and adopts five wording edits from F14; see `DECISIONS.md` § "v0.1.1 — review response".
 
 Verified on the deployed test site (`https://stv008.github.io/autonom-icebreakers/`, same day): service worker registers and activates, Workbox precache holds the 13 expected entries, the app becomes controlled on the second load and the About sheet reports "Available offline".
 

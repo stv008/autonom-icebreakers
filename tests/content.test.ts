@@ -90,10 +90,45 @@ describe("rejection rules (§12)", () => {
     (questionsOf(d)[0] as Json)["en"] = (questionsOf(d)[0] as Json)["ro"];
     expect(rulesFailed(d)).toEqual(["wording_differs"]);
   });
-  it("HTML tag", () => {
+  it("HTML tag in a wording", () => {
     const d = clone();
     (questionsOf(d)[0] as Json)["en"] = "What is <b>bold</b>?";
     expect(rulesFailed(d)).toEqual(["no_html"]);
+  });
+  it("HTML tag anywhere else: id, hu, contentVersion, publishedAt", () => {
+    for (const mutate of [
+      (d: Json) => ((questionsOf(d)[0] as Json)["id"] = "<img src=x>"),
+      (d: Json) => ((questionsOf(d)[0] as Json)["hu"] = "<b>hello</b>"),
+      (d: Json) => (d["contentVersion"] = "2026.<script>"),
+      (d: Json) => (d["publishedAt"] = "2026-09-17T12:00:00Z<b>"),
+    ]) {
+      const d = clone();
+      mutate(d);
+      expect(rulesFailed(d)).toContain("no_html");
+    }
+  });
+  it("unknown question fields are rejected (editorial columns never ship) and canonical output has no extras", () => {
+    const d = clone();
+    (questionsOf(d)[0] as Json)["alternatives"] = "private";
+    (questionsOf(d)[1] as Json)["notes"] = "owner: x";
+    expect(rulesFailed(d)).toEqual(["question_fields"]);
+    const ok = validateDeck(sample);
+    expect(Object.keys((ok.deck as unknown as Json)["questions"] as object)).not.toContain("notes");
+    expect(Object.keys(((ok.deck as unknown as Json)["questions"] as Json[])[0] as Json).sort()).toEqual([
+      "active", "category", "en", "hu", "id", "presentationSafe", "ro", "source",
+    ]);
+  });
+  it("missing question fields are rejected", () => {
+    const d = clone();
+    delete (questionsOf(d)[0] as Json)["hu"];
+    expect(rulesFailed(d)).toEqual(["question_shape"]);
+  });
+  it("releaseSeq must be a positive safe integer", () => {
+    for (const bad of [0, -1, 2 ** 53, "1"]) {
+      const d = clone();
+      d["releaseSeq"] = bad;
+      expect(rulesFailed(d), String(bad)).toEqual(["release_seq"]);
+    }
   });
   it("duplicate normalised wording within a language", () => {
     const d = clone();

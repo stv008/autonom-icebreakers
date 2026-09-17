@@ -7,7 +7,7 @@ import { PresentLayer } from "./components/PresentLayer.tsx";
 import { ScopePicker } from "./components/ScopePicker.tsx";
 import { TopBar } from "./components/TopBar.tsx";
 import { UpdateBanner } from "./components/UpdateBanner.tsx";
-import { checkForUpdate, isOfflineReady, loadInitialDeck } from "./content/loadContent.ts";
+import { checkForUpdate, isOfflineReady, loadInitialDeck, type UpdateResult } from "./content/loadContent.ts";
 import { t } from "./i18n.ts";
 import { setupPwa, type PwaHandle } from "./pwa.ts";
 import {
@@ -52,9 +52,10 @@ export function App() {
   const [exhausted, setExhausted] = useState<Exhausted>(null);
   const [present, setPresent] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const [codeUpdate, setCodeUpdate] = useState(false);
-  const [contentUpdate, setContentUpdate] = useState(false);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
+  // One pending update at a time, identified so that dismissing it hides only
+  // that update: a later release or a new worker shows the banner again.
+  const [pendingUpdate, setPendingUpdate] = useState<{ key: string; kind: "code" | "content" } | null>(null);
+  const [dismissedKey, setDismissedKey] = useState<string | null>(null);
   const [offlineReady, setOfflineReady] = useState(false);
   const [loadNonce, setLoadNonce] = useState(0);
   const pwa = useRef<PwaHandle | null>(null);
@@ -66,10 +67,12 @@ export function App() {
   const question = useMemo(() => questions.find((q) => q.id === currentId && q.active) ?? null, [questions, currentId]);
 
   // ---- persistence -------------------------------------------------------
+  // Only once content is active: before that `currentId` is still null and
+  // writing it would erase the saved card if the load were interrupted.
   useEffect(() => {
-    if (!storage) return;
+    if (!storage || phase.status !== "ready") return;
     save(storage, { ...prefs, seenIds: deckState.seenIds, lastQuestionId: currentId });
-  }, [storage, prefs, deckState.seenIds, currentId]);
+  }, [storage, phase.status, prefs, deckState.seenIds, currentId]);
 
   useEffect(() => {
     document.documentElement.lang = prefs.lang;
@@ -78,7 +81,13 @@ export function App() {
   // ---- service worker ----------------------------------------------------
   useEffect(() => {
     if (pwa.current) return;
-    pwa.current = setupPwa(() => setCodeUpdate(true));
+    // A waiting worker takes precedence: its reload also activates any staged content.
+    pwa.current = setupPwa(() => setPendingUpdate({ key: "code", kind: "code" }));
+  }, []);
+
+  const onContentUpdate = useCallback((result: UpdateResult) => {
+    if (result.kind !== "staged") return;
+    setPendingUpdate((current) => (current?.kind === "code" ? current : { key: `content:${result.releaseSeq}`, kind: "content" }));
   }, []);
 
   // ---- content: initial load + update check -----------------------------
@@ -121,8 +130,8 @@ export function App() {
       } else {
         setDeckState(activated.state);
       }
-      void checkForUpdate(deck.releaseSeq, { force: true }).then((outcome) => {
-        if (!cancelled && outcome === "staged") setContentUpdate(true);
+      void checkForUpdate(deck.releaseSeq, { force: true }).then((result) => {
+        if (!cancelled) onContentUpdate(result);
       });
       void isOfflineReady().then((ready) => {
         if (!cancelled) setOfflineReady(ready);
@@ -139,14 +148,12 @@ export function App() {
     if (!deck) return;
     const onVisible = () => {
       if (document.visibilityState !== "visible") return;
-      void checkForUpdate(deck.releaseSeq).then((outcome) => {
-        if (outcome === "staged") setContentUpdate(true);
-      });
+      void checkForUpdate(deck.releaseSeq).then(onContentUpdate);
       void isOfflineReady().then(setOfflineReady);
     };
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [deck]);
+  }, [deck, onContentUpdate]);
 
   // ---- actions -----------------------------------------------------------
   const setLang = (lang: Lang) => setPrefs((p) => ({ ...p, lang }));
@@ -221,7 +228,7 @@ export function App() {
   };
 
   const reload = () => {
-    if (codeUpdate && pwa.current) void pwa.current.applyUpdate();
+    if (pendingUpdate?.kind === "code" && pwa.current) void pwa.current.applyUpdate();
     else window.location.reload();
   };
 
@@ -294,7 +301,7 @@ export function App() {
   const remainingCount = favoritesScope ? prefs.favorites.length : remainingFor(prefs.scope);
   const canNext = deck !== null && !poolEmpty && (favoritesScope ? prefs.favorites.length > 0 : true);
   const canPrev = deck !== null && (favoritesScope ? prefs.favorites.length > 1 : deckState.cursor > 0 || exhausted !== null);
-  const bannerVisible = (codeUpdate || contentUpdate) && !bannerDismissed;
+  const bannerVisible = pendingUpdate !== null && pendingUpdate.key !== dismissedKey;
 
   const exhaustionActions =
     exhausted === "category" ? (
@@ -322,7 +329,7 @@ export function App() {
           strings={strings}
           visible={bannerVisible}
           onReload={reload}
-          onDismiss={() => setBannerDismissed(true)}
+          onDismiss={() => setDismissedKey(pendingUpdate?.key ?? null)}
         />
       )}
 

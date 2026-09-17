@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { UiStrings } from "../i18n.ts";
 import type { Deck } from "../types.ts";
 import { Sheet } from "./Sheet.tsx";
@@ -14,9 +14,22 @@ interface AboutSheetProps {
 
 export function AboutSheet({ open, strings, deck, offlineReady, onClose, onReset }: AboutSheetProps) {
   const [confirming, setConfirming] = useState(false);
+  const confirmRef = useRef<HTMLButtonElement>(null);
+  const resetRef = useRef<HTMLButtonElement>(null);
+  const previous = useRef(confirming);
+
   useEffect(() => {
     if (!open) setConfirming(false);
   }, [open]);
+
+  // The clicked button is replaced by the confirm row (and back): move focus
+  // with it instead of letting it fall to <body> (§14).
+  useEffect(() => {
+    if (previous.current !== confirming) {
+      (confirming ? confirmRef : resetRef).current?.focus();
+    }
+    previous.current = confirming;
+  }, [confirming]);
 
   const isSample = deck?.contentVersion.endsWith("-sample") ?? false;
 
@@ -48,7 +61,8 @@ export function AboutSheet({ open, strings, deck, offlineReady, onClose, onReset
           <div className="confirm__actions">
             <button
               type="button"
-              className="btn btn--danger"
+              className="btn btn--secondary btn--strong"
+              ref={confirmRef}
               onClick={() => {
                 setConfirming(false);
                 onReset();
@@ -63,7 +77,7 @@ export function AboutSheet({ open, strings, deck, offlineReady, onClose, onReset
           </div>
         </div>
       ) : (
-        <button type="button" className="btn btn--secondary" onClick={() => setConfirming(true)}>
+        <button type="button" className="btn btn--secondary" ref={resetRef} onClick={() => setConfirming(true)}>
           {strings.reset}
         </button>
       )}

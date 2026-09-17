@@ -129,16 +129,8 @@ ul {
 .btn--secondary {
   background: transparent;
 }
-.btn--danger {
-  background: transparent;
-  border-color: #c62828;
-  color: #c62828;
-}
-@media (prefers-color-scheme: dark) {
-  .btn--danger {
-    border-color: #ff8a80;
-    color: #ff8a80;
-  }
+.btn--strong {
+  border-color: var(--ink);
 }
 .btn--icon {
   padding: 0;
@@ -463,16 +455,13 @@ ul {
   font-size: 0.8125rem;
   color: var(--muted);
 }
+/* Status is conveyed by glyph + text; colours stay within the brand tokens. */
 .status--ok {
-  color: #2e7d32;
+  color: var(--blue);
+  font-weight: 600;
 }
 .status--warn {
   color: var(--muted);
-}
-@media (prefers-color-scheme: dark) {
-  .status--ok {
-    color: #81c784;
-  }
 }
 .about__privacy {
   margin-bottom: 0.75rem;
