@@ -55,4 +55,4 @@ Each entry: what was decided, why, and where it lives. Anything here can be reve
 
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
-38. No `git push`; no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending); no HTTPS preview setup (Phase 2).
+38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.
