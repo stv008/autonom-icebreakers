@@ -79,6 +79,12 @@ Independent review by Codex: `reviews/2026-09-17_review_codex_v1.0.md`. Disposit
 
 Sample content was re-released as `2026.09.1-sample` (`releaseSeq` 2, new immutable file, manifest updated) rather than editing the published `2026.09.0-sample` file — release files are immutable, and this exercises the real update path on the deployed test site.
 
+## Content release 2026.09.2 (2026-09-17)
+
+39. **Real content loaded ahead of the editorial audit, by CEO instruction** (2026-09-17). The prompt gated real content behind D5; the CEO chose to publish to the test site now. Scope, translation and publication choices were put to him explicitly: only the five-category rows (108 → 107 after one duplicate), Claude-drafted English for 9 Romanian-only rows flagged for review, publish to the public test site. Full record: `content/RELEASE_2026.09.2.md`.
+40. **Ids follow sheet order per category** (`ml-001`…) and are frozen from this release on; the sheet is the source of truth for wording, the JSON is derived.
+41. **The bundled fallback tracks the latest release** (`questions.json` = `questions-2026.09.2.json`) so a fresh install never shows the sample deck.
+
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
 38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.

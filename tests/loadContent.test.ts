@@ -15,6 +15,7 @@ const clone = (): Json => JSON.parse(JSON.stringify(sample)) as Json;
 const sha = (text: string) => createHash("sha256").update(text).digest("hex");
 const BASE_SEQ = sample.releaseSeq; // the bundled sample's own seq
 const NEXT = BASE_SEQ + 1;
+const BASE_VERSION = sample.contentVersion; // the bundled deck's own version / file name
 
 // ---- fake Cache Storage ----------------------------------------------------
 class FakeCache {
@@ -143,7 +144,7 @@ describe("checkForUpdate", () => {
   });
 
   it("does nothing when the manifest is not newer than the active or staged release", async () => {
-    publish(BASE_SEQ, "2026.09.1-sample", "questions-2026.09.1-sample.json", clone());
+    publish(BASE_SEQ, BASE_VERSION, `questions-${BASE_VERSION}.json`, clone());
     expect(await mod.checkForUpdate(BASE_SEQ, { force: true })).toEqual({ kind: "none" });
     expect(cache.store.size).toBe(0);
   });
@@ -152,10 +153,10 @@ describe("checkForUpdate", () => {
     publish(NEXT, "2026.10.0", "questions-2026.10.0.json", release("2026.10.0"));
     expect((await mod.checkForUpdate(BASE_SEQ, { force: true })).kind).toBe("staged");
     // Roll back to the current sample file (its embedded releaseSeq is lower) with a higher seq.
-    publish(NEXT + 1, "2026.09.1-sample", "questions-2026.09.1-sample.json", clone());
+    publish(NEXT + 1, BASE_VERSION, `questions-${BASE_VERSION}.json`, clone());
     expect((await mod.checkForUpdate(NEXT, { force: true })).kind).toBe("staged");
     const saved = await mod.readSavedRelease();
-    expect(saved?.contentVersion).toBe("2026.09.1-sample");
+    expect(saved?.contentVersion).toBe(BASE_VERSION);
     expect(saved?.releaseSeq).toBe(NEXT + 1);
     expect(cache.names().sort()).toEqual(["content-release", `release-${NEXT + 1}`]); // older entry pruned
   });
@@ -224,7 +225,7 @@ describe("checkForUpdate", () => {
   });
 
   it("throttles non-forced checks to one per 10 minutes", async () => {
-    publish(BASE_SEQ, "2026.09.1-sample", "questions-2026.09.1-sample.json", clone());
+    publish(BASE_SEQ, BASE_VERSION, `questions-${BASE_VERSION}.json`, clone());
     expect((await mod.checkForUpdate(BASE_SEQ)).kind).toBe("none");
     expect((await mod.checkForUpdate(BASE_SEQ)).kind).toBe("throttled");
     expect((await mod.checkForUpdate(BASE_SEQ, { force: true })).kind).toBe("none");

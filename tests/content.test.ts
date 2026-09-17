@@ -21,21 +21,20 @@ describe("validate.js ↔ types.ts", () => {
   });
 });
 
-describe("sample content (§6, §16.12)", () => {
+describe("bundled deck (§6 shape rules, §16.12)", () => {
   it("passes validation", () => {
     const result = validateDeck(sample);
     expect(result.errors).toEqual([]);
     expect(result.ok).toBe(true);
     expect(result.deck).not.toBeNull();
   });
-  it("has ≥36 questions, ≥6 per category, five categories, -sample version, no emoji, RO diacritics", () => {
+  it("has ≥36 questions, ≥6 per category, five categories, no emoji, RO diacritics", () => {
     const qs = questionsOf(clone());
     expect(qs.length).toBeGreaterThanOrEqual(36);
     for (const c of CATEGORY_IDS) {
       expect(qs.filter((q) => q["category"] === c && q["active"] === true).length).toBeGreaterThanOrEqual(6);
     }
     expect(new Set(qs.map((q) => q["category"])).size).toBe(5);
-    expect(String((sample as Json)["contentVersion"])).toMatch(/-sample$/);
     const emoji = /\p{Extended_Pictographic}/u;
     for (const q of qs) {
       expect(emoji.test(String(q["ro"]))).toBe(false);

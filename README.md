@@ -4,7 +4,7 @@ Internal Confidential · v0.1.1 (prototype, sample content) · 2026-09-17 · ini
 
 A single-screen Progressive Web App that replaces Autonom's physical ice-breaker question cards. A facilitator opens it on a phone (or shares it on a screen), shows one question, reads it aloud, moves on. Romanian and English, works offline after one online visit, no login, no accounts, no analytics.
 
-> **Prototype status.** Built from `BUILD_PROMPT.md` v1.0 as a throwaway prototype ahead of CEO decisions D1–D4 and the Phase 1 no-build trial verdict. It ships **sample questions only** (`contentVersion` ends in `-sample`; the About sheet says so). Real Autonom questions enter later through the publish pipeline below, after the editorial audit. The governed plan and provenance live in `../Autonom-Cowork-Setup/Output/2026-Q3/`. Every choice the prompt left open is listed in `DECISIONS.md`.
+> **Prototype status.** Built from `BUILD_PROMPT.md` v1.0 as a throwaway prototype ahead of CEO decisions D1–D4 and the Phase 1 no-build trial verdict. Since content release **2026.09.2** (2026-09-17, CEO instruction) it ships the **real Autonom deck** from the editorial sheet — 107 questions, English drafts and edits flagged for the editorial audit in `content/RELEASE_2026.09.2.md`. The governed plan and provenance live in `../Autonom-Cowork-Setup/Output/2026-Q3/`. Every choice the prompt left open is listed in `DECISIONS.md`.
 
 **Placeholder icon** — `public/favicon.svg` and the PNGs derived from it are placeholders. Replace them with the approved Autonom icon from Marketing before rollout.
 
@@ -180,4 +180,4 @@ Still not verified: an actual offline launch on a phone in airplane mode; the co
 
 ## Test site
 
-A public test deployment is published from `main` by `.github/workflows/deploy-pages.yml` (validate → test → build → GitHub Pages): **https://stv008.github.io/autonom-icebreakers/** — sample content, placeholder icon, not for rollout. Every push to `main` redeploys in about two minutes.
+A public test deployment is published from `main` by `.github/workflows/deploy-pages.yml` (validate → test → build → GitHub Pages): **https://stv008.github.io/autonom-icebreakers/** — real deck (pre-audit), placeholder icon, not the rollout host. Every push to `main` redeploys in about two minutes. Content release notes live in `content/`.
