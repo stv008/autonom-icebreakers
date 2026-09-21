@@ -85,6 +85,12 @@ Sample content was re-released as `2026.09.1-sample` (`releaseSeq` 2, new immuta
 40. **Ids follow sheet order per category** (`ml-001`…) and are frozen from this release on; the sheet is the source of truth for wording, the JSON is derived.
 41. **The bundled fallback tracks the latest release** (`questions.json` = `questions-2026.09.2.json`) so a fresh install never shows the sample deck.
 
+## Logo (2026-09-21)
+
+42. **Text wordmark replaced by the official logo, on CEO request.** Source: `Projects/Autonom-Cowork-Setup/Context/brand/Autonom_Logo_Vectorial_RGB.ai`, page 1 (horizontal, no tagline), extracted as outlined vector paths (no fonts, no raster) into `public/logo-autonom.svg`; the prompt's "no logo from the web" rule is respected — the asset came from the workspace brand folder. Rendered at 1.75 rem height in the top bar, hidden in present mode as before; `alt="Autonom"`.
+43. **Dark-scheme variant derived, pending Marketing.** The master file has six variants (horizontal / vertical × no tagline / EN / RO) but no negative version. `public/logo-autonom-dark.svg` keeps the four-colour mark and sets only the wordmark to white so it stays legible on `--bg #0f0f1a`; served via `<picture>` + `prefers-color-scheme`. This is a deviation from the master and belongs in `Context/brand/exceptii-registru.md` as a new row once Marketing confirms (or supplies the official negative logo, which then replaces the derived file).
+44. **App icon still a placeholder.** The mark from the logo could become the icon, but §9.6 says Marketing supplies the approved icon; unchanged.
+
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
 38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.

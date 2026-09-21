@@ -14,7 +14,10 @@ export function TopBar({ lang, strings, present, onLang, onTogglePresent }: TopB
     <header className="topbar">
       {!present && (
         <div className="topbar__brand">
-          <span className="wordmark">AUTONOM</span>
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcSet="./logo-autonom-dark.svg" />
+            <img className="logo" src="./logo-autonom.svg" alt="Autonom" width="553" height="187" decoding="async" />
+          </picture>
           <h1 className="topbar__title">{strings.title}</h1>
         </div>
       )}

@@ -172,12 +172,11 @@ ul {
   flex-direction: column;
   min-width: 0;
 }
-.wordmark {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--blue);
-  line-height: 1;
+.logo {
+  display: block;
+  height: 2rem; /* logo height; width follows the 553:187 ratio */
+  width: auto;
+  margin-bottom: 0.15rem;
 }
 .topbar__title {
   font-size: 1.125rem;
