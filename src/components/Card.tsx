@@ -98,6 +98,7 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
   return (
     <section
       className={`card${present ? " card--present" : ""}`}
+      data-category={question && !noticeText ? question.category : "all"}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => {

@@ -250,6 +250,13 @@ ul {
 }
 
 /* ---- card -------------------------------------------------------------- */
+/*
+ * Card surfaces (decision 45, CEO request 2026-09-25). Every card is the
+ * Brand Book blue with soft light from the four official logo colours
+ * (#10069F, #007cd5, #00c755, #8538c2) and one quiet line motif per category.
+ * The light and the motif stay in the corners; the centre where the question
+ * sits stays deep blue, so white text keeps ≥ 7:1 contrast.
+ */
 .main {
   display: flex;
   flex: 1;
@@ -258,7 +265,23 @@ ul {
   padding: 0.25rem 1rem;
 }
 .card {
+  /* Logo colours as light sources (not new palette colours). */
+  --logo-blue: #10069f;
+  --logo-sky: #007cd5;
+  --logo-green: #00c755;
+  --logo-violet: #8538c2;
+  --card-deep: #0a0470; /* --logo-blue darkened for depth */
+  --card-ink: #ffffff;
+  --card-soft: rgba(255, 255, 255, 0.78);
+  --glow-a: var(--logo-sky);
+  --glow-b: var(--logo-violet);
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.14'%3E%3Ccircle cx='0' cy='240' r='40'/%3E%3Ccircle cx='0' cy='240' r='70'/%3E%3Ccircle cx='0' cy='240' r='100'/%3E%3Ccircle cx='0' cy='240' r='130'/%3E%3Ccircle cx='0' cy='240' r='160'/%3E%3Ccircle cx='0' cy='240' r='190'/%3E%3Ccircle cx='0' cy='240' r='220'/%3E%3Ccircle cx='0' cy='240' r='250'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-size: min(70%, 17rem) auto;
+  --motif-pos: left bottom;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .3 -.16'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
+
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -267,20 +290,105 @@ ul {
   min-height: 14rem;
   margin: 0 auto;
   padding: 1.25rem 1.25rem 3.5rem;
-  border-radius: var(--radius);
-  background: var(--card);
-  box-shadow: var(--shadow);
+  border-radius: calc(var(--radius) + 8px);
+  color: var(--card-ink);
+  background:
+    var(--grain),
+    var(--motif) var(--motif-pos) / var(--motif-size) no-repeat,
+    radial-gradient(110% 70% at 100% 0%, color-mix(in srgb, var(--glow-a) 80%, transparent) 0%, color-mix(in srgb, var(--glow-a) 22%, transparent) 38%, transparent 68%),
+    radial-gradient(100% 60% at 0% 100%, color-mix(in srgb, var(--glow-b) 75%, transparent) 0%, color-mix(in srgb, var(--glow-b) 20%, transparent) 38%, transparent 68%),
+    linear-gradient(160deg, var(--logo-blue) 0%, var(--card-deep) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 2px 6px rgba(16, 6, 159, 0.12),
+    0 24px 48px -18px color-mix(in srgb, var(--glow-a) 55%, rgba(16, 6, 159, 0.5));
   touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
 }
+@media (prefers-color-scheme: dark) {
+  .card {
+    --card-deep: #06033f;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 24px 48px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+/* One character per category: which light, which motif, where. */
+.card[data-category="me_life_dreams"] {
+  --glow-a: var(--logo-violet);
+  --glow-b: var(--logo-sky);
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.16'%3E%3Ccircle cx='240' cy='0' r='44'/%3E%3Ccircle cx='240' cy='0' r='78'/%3E%3Ccircle cx='240' cy='0' r='112'/%3E%3Ccircle cx='240' cy='0' r='146'/%3E%3Ccircle cx='240' cy='0' r='180'/%3E%3Ccircle cx='240' cy='0' r='214'/%3E%3Ccircle cx='240' cy='0' r='248'/%3E%3C/g%3E%3Ccircle cx='143' cy='98' r='3' fill='white' fill-opacity='.5'/%3E%3Ccircle cx='205' cy='168' r='2' fill='white' fill-opacity='.35'/%3E%3C/svg%3E");
+  --motif-pos: right top;
+  --motif-size: min(78%, 17rem) auto;
+}
+.card[data-category="values"] {
+  --glow-a: var(--logo-sky);
+  --glow-b: #3a2fd6; /* --logo-blue lifted */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.15'%3E%3Crect x='-26' y='214' width='52' height='52' transform='rotate%2845 0 240%29'/%3E%3Crect x='-52' y='188' width='104' height='104' transform='rotate%2845 0 240%29'/%3E%3Crect x='-78' y='162' width='156' height='156' transform='rotate%2845 0 240%29'/%3E%3Crect x='-104' y='136' width='208' height='208' transform='rotate%2845 0 240%29'/%3E%3Crect x='-130' y='110' width='260' height='260' transform='rotate%2845 0 240%29'/%3E%3Crect x='-156' y='84' width='312' height='312' transform='rotate%2845 0 240%29'/%3E%3Crect x='-182' y='58' width='364' height='364' transform='rotate%2845 0 240%29'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-pos: left bottom;
+  --motif-size: min(72%, 17rem) auto;
+}
+.card[data-category="personal_growth"] {
+  --glow-a: var(--logo-green);
+  --glow-b: var(--logo-sky);
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.16' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='40,150 140,80 240,150'/%3E%3Cpolyline points='40,172 140,102 240,172'/%3E%3Cpolyline points='40,194 140,124 240,194'/%3E%3Cpolyline points='40,216 140,146 240,216'/%3E%3Cpolyline points='40,238 140,168 240,238'/%3E%3Cpolyline points='40,260 140,190 240,260'/%3E%3Cpolyline points='40,282 140,212 240,282'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-pos: right bottom;
+  --motif-size: min(70%, 17rem) auto;
+}
+.card[data-category="relationships"] {
+  --glow-a: var(--logo-violet);
+  --glow-b: var(--logo-green);
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.2'%3E%3Ccircle cx='150' cy='205' r='58'/%3E%3Ccircle cx='205' cy='205' r='58'/%3E%3Ccircle cx='178' cy='215' r='96' stroke-opacity='.55'/%3E%3C/g%3E%3C/svg%3E");
+  --motif-pos: right bottom;
+  --motif-size: min(62%, 17rem) auto;
+}
+.card[data-category="professional"] {
+  --glow-a: var(--logo-sky);
+  --glow-b: var(--logo-green);
+  --motif-pos: right top;
+  --motif-size: 18px 18px;
+  --dots: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='1.4' fill='white' fill-opacity='.38'/%3E%3C/svg%3E");
+  --motif: none;
+}
+.card[data-category="professional"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--dots) 0 0 / var(--motif-size);
+  -webkit-mask-image: radial-gradient(70% 60% at 100% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(70% 60% at 100% 0%, #000 0%, transparent 75%);
+  pointer-events: none;
+}
 .card__category {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.75rem;
-  color: var(--blue);
-  font-size: 0.8125rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--card-ink);
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+.card__category::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--glow-a);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
 }
 .card__body {
   display: flex;
@@ -292,11 +400,13 @@ ul {
 .card__text {
   width: 100%;
   margin: auto 0; /* safe vertical centring: never clips the top when overflowing */
+  color: var(--card-ink);
   font-size: clamp(1.6rem, 4.6vw + 1rem, 2.75rem);
   font-weight: 600;
   line-height: 1.25;
   text-wrap: balance;
   overflow-wrap: anywhere;
+  text-shadow: 0 1px 2px rgba(6, 3, 63, 0.35);
 }
 @media (prefers-reduced-motion: no-preference) {
   .card__text {
@@ -329,14 +439,25 @@ ul {
   justify-content: center;
   gap: 0.5rem;
 }
+/* Buttons sitting on the blue card surface. */
+.card .btn--primary {
+  background: var(--card-ink);
+  border-color: var(--card-ink);
+  color: var(--logo-blue);
+}
+.card .btn--secondary {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--card-ink);
+}
 .star {
   position: absolute;
   right: 0.5rem;
   bottom: 0.5rem;
   font-size: 1.6rem;
+  color: var(--card-soft);
 }
 .star--on {
-  color: var(--blue);
+  color: var(--card-ink);
 }
 
 /* ---- controls + footer ------------------------------------------------- */
@@ -489,16 +610,14 @@ ul {
   max-width: none;
   min-height: 0;
   padding: 2rem clamp(1rem, 5vw, 4rem);
-  box-shadow: none;
-  background: var(--bg);
 }
 .app--present .card__text {
   font-size: clamp(2rem, 6vw + 1.2rem, 4.5rem);
   text-align: center;
 }
 .app--present .card__category {
-  text-align: center;
-  font-size: 1rem;
+  align-self: center;
+  font-size: 0.9rem;
 }
 .controls--present {
   max-width: none;

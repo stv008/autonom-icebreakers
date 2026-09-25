@@ -1,6 +1,6 @@
 # Autonom Icebreakers
 
-Internal Confidential · v0.1.1 (prototype, sample content) · 2026-09-17 · initiated-by: claude-code
+Internal Confidential · v0.1.2 (prototype) · 2026-09-25 · initiated-by: claude-code
 
 A single-screen Progressive Web App that replaces Autonom's physical ice-breaker question cards. A facilitator opens it on a phone (or shares it on a screen), shows one question, reads it aloud, moves on. Romanian and English, works offline after one online visit, no login, no accounts, no analytics.
 
@@ -18,6 +18,7 @@ A single-screen Progressive Web App that replaces Autonom's physical ice-breaker
 - RO│EN toggle for questions and chrome; persists; never draws a new card.
 - Offline after the first visit; content updates arrive as versioned releases and activate on the next launch, never under your feet.
 - Dark mode follows the OS. Brand tokens from the Autonom Brand Book only.
+- Question cards carry a designed background per category, built only from the Brand Book blue and the four logo colours (decisions 45–48).
 
 ## Run it
 
