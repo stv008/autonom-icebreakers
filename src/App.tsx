@@ -359,6 +359,7 @@ export function App() {
                 </div>
               </div>
             </div>
+            <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
           </section>
         ) : (
           <Card

@@ -439,6 +439,16 @@ ul {
   justify-content: center;
   gap: 0.5rem;
 }
+/* Autonom logo on every card (decision 49): bottom-left, opposite the star.
+   Decorative (alt=""), the top bar already names the brand. */
+.card__logo {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.1rem;
+  height: 1.375rem; /* width follows the 553:187 ratio */
+  width: auto;
+  pointer-events: none;
+}
 /* Buttons sitting on the blue card surface. */
 .card .btn--primary {
   background: var(--card-ink);
@@ -609,11 +619,16 @@ ul {
 .app--present .card {
   max-width: none;
   min-height: 0;
-  padding: 2rem clamp(1rem, 5vw, 4rem);
+  padding: 2rem clamp(1rem, 5vw, 4rem) 4rem; /* bottom keeps text clear of the logo */
 }
 .app--present .card__text {
   font-size: clamp(2rem, 6vw + 1.2rem, 4.5rem);
   text-align: center;
+}
+.app--present .card__logo {
+  left: clamp(1rem, 5vw, 4rem);
+  bottom: 1.25rem;
+  height: 1.75rem;
 }
 .app--present .card__category {
   align-self: center;
@@ -639,5 +654,9 @@ ul {
   }
   .card {
     padding: 2rem 2rem 4rem;
+  }
+  .card__logo {
+    left: 2rem;
+    bottom: 1.4rem;
   }
 }
