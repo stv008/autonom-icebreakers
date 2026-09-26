@@ -348,7 +348,7 @@ export function App() {
 
       <main className="main">
         {phase.status === "error" ? (
-          <section className="card">
+          <section className="card" data-category="all">
             <div className="card__body">
               <div className="card__notice">
                 <p className="card__notice-text">{strings.loadError}</p>
