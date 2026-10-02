@@ -1,5 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- PLACEHOLDER icon — replace with the approved Autonom icon from Marketing before rollout. -->
-  <rect width="512" height="512" rx="112" fill="#10069F"/>
-  <text x="256" y="336" text-anchor="middle" font-family="'Titillium Web', Arial, Helvetica, sans-serif" font-weight="700" font-size="232" fill="#ffffff">Ai</text>
+  <!-- App icon derived from the official Autonom logo mark (Context/brand/Autonom_Logo_Vectorial_RGB.ai via public/logo-autonom-card.svg:
+       four-colour mark, deep-blue stroke set to white for the blue ground). Derived variant pending Marketing — DECISIONS 64. -->
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10069F"/><stop offset="1" stop-color="#0a0470"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <g transform="translate(256 256) scale(1.8618) translate(-529.310 -165.044)">
+<path transform="matrix(1,0,0,-1,518.3039,191.6162)" d="M0 0 20.149-16.954 91.575 87.665 52.123 67.44 34.199 43.343 21.196 51.585 .801 41.13 21.104 26.748Z" fill="#00c755"/>
+<path transform="matrix(1,0,0,-1,518.6516,194.16011)" d="M0 0-16.843-21.191-11.069-42.298 8.413-17.063 1.502-10.986ZM14.715 21.635 7.524 12.521 3.6 29.913Z" fill="#ffffff"/>
+<path transform="matrix(1,0,0,-1,536.3146,123.7417)" d="M0 0 34.113-.435 73.564 19.79-67.802 30.111-59.776 .771-23.27 .299-17.173-26.726 3.178-16.293Z" fill="#007cd5"/>
+<path transform="matrix(1,0,0,-1,536.3145,123.7417)" d="M0 0 .977-5.008 25.755-.328ZM-30.694 .395-25.726-20.712-37.608-12.296-75.549-19.459-87.573-9.342-33.514 .431Z" fill="#8538c2"/>
+  </g>
 </svg>

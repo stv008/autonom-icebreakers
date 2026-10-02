@@ -1,6 +1,6 @@
 # Autonom Icebreakers
 
-Internal Confidential · app v0.1.6 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
+Internal Confidential · app v0.1.7 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
@@ -16,7 +16,7 @@ A single-screen Progressive Web App that replaces Autonom's physical ice-breaker
 
 > **Prototype status.** Built from `BUILD_PROMPT.md` v1.0 as a throwaway prototype ahead of CEO decisions D1–D4 and the Phase 1 no-build trial verdict. Since content release **2026.09.2** (2026-09-17, CEO instruction) it ships the **real Autonom deck** from the editorial sheet — 107 questions, English drafts and edits flagged for the editorial audit in `content/RELEASE_2026.09.2.md`. Release **2026.10.0** (2026-10-02, local only) expands it to 479 questions in eight categories — `content/RELEASE_2026.10.0.md`. The governed plan and provenance live in `../Autonom-Cowork-Setup/Output/2026-Q3/`. Every choice the prompt left open is listed in `DECISIONS.md`.
 
-**Placeholder icon** — `public/favicon.svg` and the PNGs derived from it are placeholders. Replace them with the approved Autonom icon from Marketing before rollout.
+**App icon** — derived from the official Autonom logo mark (decision 64), pending Marketing's confirmation or an official icon.
 
 ## What it does
 

@@ -2,6 +2,13 @@
 
 Internal Confidential · v1.3 · initiated-by: codex; v1.3 entry claude-code
 
+## 2026-10-02 — v0.1.7 icon + card finish; branch cleanup [NOU]
+
+- Invocation: Marius's answers 2026-10-02: icon from the logo, card finish "show me first", delete both private branches, fix the Sheet typos via connector.
+- Result: app icon from the logo mark (decision 64); grain ~2.3× finer + SVG star (decision 65); before/after sheet `outputs/2026-10-02_card-finish-preview_claude/` (local). Branches `backup/local-main-pre-redaction-2026-10-02` and `codex/question-source-docs` deleted (and Codex worktree removed) after verifying all 31 research files and all private links/ids exist on disk byte-identical. No branch holds `outputs/` any more.
+- Blocked: the Google Sheet fix — no Google Sheets connector in this session (Drive only, which cannot edit cells).
+- Verification: 92/92 tests, build + check-dist ok. Not pushed pending Marius's OK.
+
 ## 2026-10-02 — ChatGPT review → v0.1.6 + content 2026.10.2 [NOU]
 
 - Invocation: Marius, "use chatgpt as a reviewer for code, graphics and translation". Four ChatGPT jobs (gpt-6-astra, high) with inline public material; dispositions in `reviews/2026-10-02_review_chatgpt_v1.0.md`.

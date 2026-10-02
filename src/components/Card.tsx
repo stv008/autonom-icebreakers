@@ -132,7 +132,15 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
           aria-label={favorite ? strings.unfavorite : strings.favorite}
           onClick={onToggleFavorite}
         >
-          <span aria-hidden="true">{favorite ? "★" : "☆"}</span>
+          <svg className="star__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M12 2.8l2.78 5.64 6.22.9-4.5 4.39 1.06 6.2L12 17.0l-5.56 2.93 1.06-6.2L3 9.34l6.22-.9z"
+              fill={favorite ? "currentColor" : "none"}
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       )}
     </section>

@@ -278,7 +278,7 @@ ul {
   --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='white' stroke-width='1' stroke-opacity='.14'%3E%3Ccircle cx='0' cy='240' r='40'/%3E%3Ccircle cx='0' cy='240' r='70'/%3E%3Ccircle cx='0' cy='240' r='100'/%3E%3Ccircle cx='0' cy='240' r='130'/%3E%3Ccircle cx='0' cy='240' r='160'/%3E%3Ccircle cx='0' cy='240' r='190'/%3E%3Ccircle cx='0' cy='240' r='220'/%3E%3Ccircle cx='0' cy='240' r='250'/%3E%3C/g%3E%3C/svg%3E");
   --motif-size: min(70%, 17rem) auto;
   --motif-pos: left bottom;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .3 -.16'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 -.07'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
 
   position: relative;
   isolation: isolate;
@@ -487,8 +487,13 @@ ul {
   position: absolute;
   right: 0.5rem;
   bottom: 0.5rem;
-  font-size: 1.6rem;
   color: var(--card-soft);
+}
+/* Drawn star (decision 65): identical on every platform, unlike the ☆/★ font glyphs. */
+.star__icon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .star--on {
   color: var(--card-ink);
