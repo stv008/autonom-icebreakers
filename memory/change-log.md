@@ -2,6 +2,12 @@
 
 Internal Confidential · v1.3 · initiated-by: codex; v1.3 entry claude-code
 
+## 2026-10-02 — Sheet sync + content 2026.10.3 [NOU]
+
+- Invocation: Marius approved each step: write the 3 typo cells, then fix 11 more errors "in both" sheet and app, and push.
+- Sheet: Google Sheets connector, tab „Versiune actuala” only, column C, 14 cells written and re-read (C14, C20, C22, C23, C30, C42, C56, C66, C75, C80, C82, C93, C99, C101). Other tabs not read.
+- App: content 2026.10.3 (seq 7, sha256 `c6753f2e…ede45`), DECISIONS 66. Gates: validate PASS, 95/95, build + check-dist ok, all releases reproducible.
+
 ## 2026-10-02 — v0.1.7 icon + card finish; branch cleanup [NOU]
 
 - Invocation: Marius's answers 2026-10-02: icon from the logo, card finish "show me first", delete both private branches, fix the Sheet typos via connector.

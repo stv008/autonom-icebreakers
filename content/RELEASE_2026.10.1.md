@@ -27,7 +27,7 @@ Internal Confidential · 2026-10-02 · initiated-by: claude-code · releaseSeq 5
 
 ## Open
 
-- **The editorial sheet still has the old texts.** Apply the same three fixes there, or a later import from the sheet will bring the typos back.
+- ~~The editorial sheet still has the old texts.~~ **Resolved 2026-10-02:** cells C14, C20 and C30 of „Versiune actuala” were updated via the Google Sheets connector and verified (see `RELEASE_2026.10.3.md`).
 - No app code changed. Installed apps get the release through the normal manifest check (download, verify, "New version available"). The bundled fallback `questions.json` is precached and changed with it, so the build also ships a new service worker; its update banner activates both on Reload. *(Corrected 2026-10-02 by claude-code: an earlier draft said no service-worker update was needed.)*
 
 ## Deploy

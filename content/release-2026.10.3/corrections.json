@@ -1,0 +1,60 @@
+{
+  "_about": "Minimal English spelling/grammar fixes on the original 107 (CEO approval 2026-10-02), written identically to the Google Sheet „Versiune actuala” column C so sheet and app stay in sync (the app keeps its existing space where the sheet has a line break in va-001). Each `from` must match 2026.10.2 exactly.",
+  "corrections": {
+    "ml-015": {
+      "from": "What is your guily pleasure?",
+      "to": "What is your guilty pleasure?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C22"
+    },
+    "ml-016": {
+      "from": "What make you smile during though times?",
+      "to": "What makes you smile during tough times?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C23"
+    },
+    "ml-035": {
+      "from": "Talk about a monent that reminds you of a song.",
+      "to": "Talk about a moment that reminds you of a song.",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C42"
+    },
+    "pg-013": {
+      "from": "What are 3 things that make you feel proud.",
+      "to": "What are 3 things that make you feel proud?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C56"
+    },
+    "re-003": {
+      "from": "What are the most important qualities you look for in your firends?",
+      "to": "What are the most important qualities you look for in your friends?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C66"
+    },
+    "va-001": {
+      "from": "\"Every lie is two lies. The lie we tell others and the lie we tell ourselves to justify it.\"  - Robert Brault When have you last justified dishonesty? Why?",
+      "to": "\"Every lie is two lies. The lie we tell others and the lie we tell ourselves to justify it.\"  - Robert Brault When did you last justify dishonesty? Why?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C75"
+    },
+    "va-006": {
+      "from": "What is the reasonf for which you wold sever an old relationship?",
+      "to": "What is the reason for which you would sever an old relationship?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C80"
+    },
+    "va-008": {
+      "from": "What are the challanges, and benefits, of being honest?",
+      "to": "What are the challenges, and benefits, of being honest?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C82"
+    },
+    "va-019": {
+      "from": "If you were to volunteer for a year, what cause would you chose?",
+      "to": "If you were to volunteer for a year, what cause would you choose?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C93"
+    },
+    "va-025": {
+      "from": "In what way are you a rolemodel for the people around you?",
+      "to": "In what way are you a role model for the people around you?",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C99"
+    },
+    "va-027": {
+      "from": "I struggle to extend emplathy when _______.",
+      "to": "I struggle to extend empathy when _______.",
+      "reason": "spelling/grammar typo; also fixed in the Google Sheet „Versiune actuala” cell C101"
+    }
+  }
+}

@@ -17,6 +17,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PATCHES = {
   "2026.10.1": { base: "2026.10.0", seq: 5, publishedAt: "2026-10-02T10:30:00Z" },
   "2026.10.2": { base: "2026.10.1", seq: 6, publishedAt: "2026-10-02T12:30:00Z" },
+  "2026.10.3": { base: "2026.10.2", seq: 7, publishedAt: "2026-10-02T13:30:00Z" },
 };
 const requested = process.argv.slice(2).find((a) => !a.startsWith("--"));
 const CONTENT_VERSION = requested ?? Object.keys(PATCHES).at(-1);
