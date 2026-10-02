@@ -2,7 +2,7 @@
 
 Internal Confidential · 2026-10-02 · initiated-by: claude-code · releaseSeq 4 · replaces `2026.09.2` (seq 3)
 
-**Status: implemented and verified locally. Not live.** Nothing pushed or deployed (see "Deploy" below).
+**Status:** see "Deploy" below. Shipped with app v0.1.4: the merge of v0.1.3, card motifs for the three new categories (decision 56) and the Romanian title "Icebreakers" (decision 57).
 
 **Authorisation:** Marius's instruction of 2026-10-02 to implement the completed collection in the app, including the three proposed categories. This supersedes the earlier workbook-only scope recorded in `content/SOURCES.md` and `memory/change-log.md` (those entries stay as history).
 
@@ -61,12 +61,14 @@ In app v1 the field is **reserved and not read** (README; BUILD_PROMPT §5.1), s
 - Historical files `questions-2026.09.0-sample.json`, `-09.1-sample.json` and `-09.2.json` are unchanged (2026.09.2 sha256 `bc0a991b…1852`)
 - `npm run validate`: PASS, 1 warning (`va-002` is 234 characters, carried over from 2026.09.2)
 
-## Deploy (not done — needs approval)
+## Deploy
 
-Pages deploys `main` on push (`.github/workflows/deploy-pages.yml`). Two caveats first; see the session handoff:
+Approved by Marius on 2026-10-02 ("push when it's green"), after these steps:
 
-1. Local `main` is 2 commits behind `origin/main` (live v0.1.2 card backgrounds and v0.1.3 card logo). A merge is needed before push. The three new categories will use the base card motif until dedicated motifs are designed.
-2. The GitHub repository is **public**. Local `main` carries three unpushed Codex commits that track `outputs/` (workbooks, reader reports, inventory, private Drive links). Pushing `main` as is would publish them in the repository, though not on the site. Decide on untracking, history rewrite or a private repo before any push.
+1. **Public-repo redaction.** The four unpushed local commits were rewritten into one public-safe commit. `outputs/` and `content/SOURCES.private.md` (Sheet/Drive links, email ids) are git-ignored and never left the machine. The original history is on the local-only branch `backup/local-main-pre-redaction-2026-10-02`. **Never push that branch.**
+2. **Merged `origin/main`** (v0.1.2 card backgrounds, v0.1.3 card logo). The conflicts were only in README and DECISIONS. Version set to 0.1.4.
+3. Card motifs for the three new categories (decision 56) and the Romanian title (decision 57).
+4. Gates green, then `git push origin main` → GitHub Actions `deploy-pages` → https://stv008.github.io/autonom-icebreakers/. The live verification result is in the session handoff.
 
 ## Rollback
 

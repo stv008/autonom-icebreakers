@@ -348,7 +348,7 @@ export function App() {
 
       <main className="main">
         {phase.status === "error" ? (
-          <section className="card">
+          <section className="card" data-category="all">
             <div className="card__body">
               <div className="card__notice">
                 <p className="card__notice-text">{strings.loadError}</p>
@@ -359,6 +359,7 @@ export function App() {
                 </div>
               </div>
             </div>
+            <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
           </section>
         ) : (
           <Card

@@ -98,6 +98,7 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
   return (
     <section
       className={`card${present ? " card--present" : ""}`}
+      data-category={question && !noticeText ? question.category : "all"}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => {
@@ -121,6 +122,7 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
           </p>
         )}
       </div>
+      <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
       {question && !present && !noticeText && (
         <button
           type="button"

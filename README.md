@@ -1,10 +1,10 @@
 # Autonom Icebreakers
 
-Internal Confidential · app v0.1.1 (prototype, real deck) · documentation v1.4 · 2026-10-02 · initiated-by: codex; v1.4 update by claude-code
+Internal Confidential · app v0.1.4 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
-**Content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories. Implemented and verified locally; NOT live.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
+**Content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories, app v0.1.4.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
 
 ## Question source [2026-10-02]
 
@@ -28,6 +28,9 @@ A single-screen Progressive Web App that replaces Autonom's physical ice-breaker
 - RO│EN toggle for questions and chrome; persists; never draws a new card.
 - Offline after the first visit; content updates arrive as versioned releases and activate on the next launch, never under your feet.
 - Dark mode follows the OS. Brand tokens from the Autonom Brand Book only.
+- Question cards carry a designed background per category, built only from the Brand Book blue and the four logo colours (decisions 45–48).
+- Every card carries the Autonom logo bottom-left (derived card variant, pending Marketing — decisions 49–50).
+- The three categories added in 2026.10.0 have their own card identities (decision 56). The app title is "Icebreakers" in both languages (decision 57).
 
 ## Run it
 

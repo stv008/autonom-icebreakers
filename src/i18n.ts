@@ -4,7 +4,7 @@ import type { Lang } from "./types.ts";
 // listed in DECISIONS.md (release, close, favoritesHint).
 export const ui = {
   ro: {
-    title: "Sparge gheața",
+    title: "Icebreakers", // CEO 2026-10-02: same product name in both languages (was "Sparge gheața")
     all: "Toate întrebările",
     favorites: "Favorite",
     prev: "Înapoi",
