@@ -37,6 +37,14 @@ if (retained.length !== EXPECTED_TOTAL) throw new Error(`expected ${EXPECTED_TOT
 const baseById = new Map(base.questions.map((/** @type {any} */ q) => [q.id, q]));
 const used = new Set();
 
+// Membership guards (ChatGPT code review 2026-10-02): unique source ids, every
+// published id present in the source, and no presentation-safety override on a
+// published question (the published 107 are copied verbatim).
+const sourceIds = new Set(retained.map((q) => q.id));
+if (sourceIds.size !== retained.length) throw new Error("duplicate ids in the editorial source");
+for (const id of baseById.keys()) if (!sourceIds.has(id)) throw new Error(`${id}: published question missing from the editorial source`);
+for (const id of Object.keys(notPresentationSafe)) if (baseById.has(id)) throw new Error(`${id}: presentation-safety override on a published question (copied verbatim)`);
+
 // 1. The published 107, verbatim and in their published order.
 /** @type {import("../src/types.ts").Question[]} */
 const questions = base.questions.map((/** @type {any} */ q) => ({ ...q }));
@@ -77,6 +85,8 @@ for (const q of retained) {
 for (const id of Object.keys(translations)) if (!used.has(`t:${id}`)) throw new Error(`unused translation ${id}`);
 for (const id of Object.keys(corrections)) if (!used.has(`c:${id}`)) throw new Error(`unused correction ${id}`);
 for (const id of Object.keys(notPresentationSafe)) if (!questions.some((q) => q.id === id)) throw new Error(`unknown presentation-safety id ${id}`);
+
+if (questions.length !== EXPECTED_TOTAL) throw new Error(`expected ${EXPECTED_TOTAL} questions in the release, got ${questions.length}`);
 
 const deck = { schemaVersion: 1, contentVersion: CONTENT_VERSION, releaseSeq: RELEASE_SEQ, publishedAt: PUBLISHED_AT, questions };
 const result = validateDeck(deck);

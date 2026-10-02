@@ -301,7 +301,7 @@ describe("loadInitialDeck", () => {
   });
 });
 
-describe("published releases: 2026.09.2 → 2026.10.0 → 2026.10.1 (real files)", () => {
+describe("published releases: 2026.09.2 → 2026.10.0 → 2026.10.1 → 2026.10.2 (real files)", () => {
   const dataDir = join(__dirname, "..", "public", "data");
   const file = (name: string) => readFileSync(join(dataDir, name), "utf8");
   const realManifest = JSON.parse(file("manifest.json")) as { releaseSeq: number; contentVersion: string; questionsUrl: string; sha256: string };
@@ -315,11 +315,11 @@ describe("published releases: 2026.09.2 → 2026.10.0 → 2026.10.1 (real files)
     serve("/data/questions.json", file("questions.json"));
     const loaded = await mod.loadInitialDeck();
     expect(loaded?.origin).toBe("bundled");
-    expect(loaded?.deck.contentVersion).toBe("2026.10.1");
+    expect(loaded?.deck.contentVersion).toBe("2026.10.2");
     expect(loaded?.deck.questions).toHaveLength(479);
   });
 
-  it("upgrade: a device holding 2026.09.2 (seq 3) stages 2026.10.0, then the published 2026.10.1, then rolls back by a higher seq", async () => {
+  it("upgrade: a device holding 2026.09.2 (seq 3) stages 2026.10.0, 2026.10.1, then the published 2026.10.2, then rolls back by a higher seq", async () => {
     const old = file("questions-2026.09.2.json");
     serveReal({ releaseSeq: 3, contentVersion: "2026.09.2", schemaVersion: 1, questionsUrl: "./questions-2026.09.2.json", sha256: sha(old) }, "questions-2026.09.2.json");
     expect((await mod.checkForUpdate(2, { force: true })).kind).toBe("staged");
@@ -332,13 +332,18 @@ describe("published releases: 2026.09.2 → 2026.10.0 → 2026.10.1 (real files)
     expect(saved?.questions).toHaveLength(479);
     expect(new Set(saved?.questions.map((q) => q.category)).size).toBe(8);
 
-    serveReal({ ...realManifest, schemaVersion: 1 }, "questions-2026.10.1.json");
+    const typoFix = file("questions-2026.10.1.json");
+    serveReal({ releaseSeq: 5, contentVersion: "2026.10.1", schemaVersion: 1, questionsUrl: "./questions-2026.10.1.json", sha256: sha(typoFix) }, "questions-2026.10.1.json");
     expect(await mod.checkForUpdate(4, { force: true })).toEqual({ kind: "staged", releaseSeq: 5, contentVersion: "2026.10.1" });
     expect((await mod.readSavedRelease())?.questions.find((q) => q.id === "ml-023")?.en).toBe("How would your family describe you in 3 words?");
 
-    // Rollback: seq 6 pointing at the immutable 2026.09.2 file.
-    serveReal({ releaseSeq: 6, contentVersion: "2026.09.2", schemaVersion: 1, questionsUrl: "./questions-2026.09.2.json", sha256: sha(old) }, "questions-2026.09.2.json");
-    expect((await mod.checkForUpdate(5, { force: true })).kind).toBe("staged");
+    serveReal({ ...realManifest, schemaVersion: 1 }, "questions-2026.10.2.json");
+    expect(await mod.checkForUpdate(5, { force: true })).toEqual({ kind: "staged", releaseSeq: 6, contentVersion: "2026.10.2" });
+    expect((await mod.readSavedRelease())?.questions.find((q) => q.id === "FE-114")?.en).toBe("What did you unlearn when you moved into a new role?");
+
+    // Rollback: seq 7 pointing at the immutable 2026.09.2 file.
+    serveReal({ releaseSeq: 7, contentVersion: "2026.09.2", schemaVersion: 1, questionsUrl: "./questions-2026.09.2.json", sha256: sha(old) }, "questions-2026.09.2.json");
+    expect((await mod.checkForUpdate(6, { force: true })).kind).toBe("staged");
     expect((await mod.readSavedRelease())?.questions).toHaveLength(107);
   });
 });

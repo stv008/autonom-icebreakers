@@ -2,6 +2,13 @@
 
 Internal Confidential · v1.3 · initiated-by: codex; v1.3 entry claude-code
 
+## 2026-10-02 — ChatGPT review → v0.1.6 + content 2026.10.2 [NOU]
+
+- Invocation: Marius, "use chatgpt as a reviewer for code, graphics and translation". Four ChatGPT jobs (gpt-6-astra, high) with inline public material; dispositions in `reviews/2026-10-02_review_chatgpt_v1.0.md`.
+- Result: importer membership guards + build-time `check-dist.mjs`; motif refinements (all 8 categories ≥ 7.44:1 measured, Dreams fixed); 35 of 36 flagged English texts corrected as content 2026.10.2 (seq 6, sha256 `b72a79a4…c48b`); app v0.1.6; DECISIONS 60–63.
+- Rejected on measurement: logo distortion, pill-label contrast, glow as the Dreams cause. Deferred: grain/star-glyph restyle (CEO call).
+- Verification: validate PASS, 92/92 tests, build + check-dist ok, all three release scripts `--check` reproducible, 360-px visual check.
+
 ## 2026-10-02 — Content release 2026.10.1 (EN typos) [NOU]
 
 - Invocation: CEO instruction to fix the English typos (built and committed locally by a parallel claude-code session, `fa7af9b`), then "take it over" to this session: verify, correct docs, publish.

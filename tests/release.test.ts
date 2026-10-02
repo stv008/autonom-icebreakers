@@ -27,6 +27,8 @@ const previous = JSON.parse(read("questions-2026.09.2.json")) as Deck;
 const qs = release.questions;
 const patchText = read("questions-2026.10.1.json");
 const patch = JSON.parse(patchText) as Deck;
+const patch2Text = read("questions-2026.10.2.json");
+const patch2 = JSON.parse(patch2Text) as Deck;
 
 const EXPECTED_BY_CATEGORY: Record<string, number> = {
   me_life_dreams: 73,
@@ -141,7 +143,42 @@ describe("release 2026.10.1 (English typo fixes)", () => {
   });
 
   it("is reproducible from 2026.10.0 by the patch script", () => {
-    const out = execFileSync(process.execPath, [join(root, "scripts/patch-release.mjs"), "--check"], { cwd: root, encoding: "utf8" });
+    const out = execFileSync(process.execPath, [join(root, "scripts/patch-release.mjs"), "2026.10.1", "--check"], { cwd: root, encoding: "utf8" });
+    expect(out).toContain("reproduces");
+  });
+});
+
+describe("release 2026.10.2 (ChatGPT-reviewed English corrections)", () => {
+  const corrections = JSON.parse(readFileSync(join(root, "content/release-2026.10.2/corrections.json"), "utf8")) as {
+    corrections: Record<string, { from: string; to: string }>;
+  };
+  const drafted = JSON.parse(readFileSync(join(root, "content/release-2026.10.0/en-translations.json"), "utf8")) as {
+    translations: Record<string, string>;
+    corrections: Record<string, unknown>;
+  };
+
+  it("passes validation as releaseSeq 6", () => {
+    expect(validateDeck(patch2).errors).toEqual([]);
+    expect(patch2).toMatchObject({ schemaVersion: 1, contentVersion: "2026.10.2", releaseSeq: 6 });
+  });
+
+  it("differs from 2026.10.1 only in the 35 corrected English texts, all on new questions", () => {
+    expect(Object.keys(corrections.corrections)).toHaveLength(35);
+    expect(patch2.questions).toHaveLength(patch.questions.length);
+    patch2.questions.forEach((q, i) => {
+      const c = corrections.corrections[q.id];
+      const base = patch.questions[i]!;
+      expect(q, q.id).toEqual(c ? { ...base, en: c.to } : base);
+      if (c) expect(base.en).toBe(c.from);
+    });
+    // Only Claude-drafted (or source-corrected) English is touched; the published 107 stay as they were.
+    for (const id of Object.keys(corrections.corrections)) {
+      expect(id in drafted.translations || id in drafted.corrections || !previous.questions.some((q) => q.id === id), id).toBe(true);
+    }
+  });
+
+  it("is reproducible from 2026.10.1 by the patch script", () => {
+    const out = execFileSync(process.execPath, [join(root, "scripts/patch-release.mjs"), "2026.10.2", "--check"], { cwd: root, encoding: "utf8" });
     expect(out).toContain("reproduces");
   });
 });
@@ -149,21 +186,23 @@ describe("release 2026.10.1 (English typo fixes)", () => {
 describe("manifest and published files", () => {
   it("points at the latest release with its version, seq and SHA-256", () => {
     expect(manifest).toEqual({
-      releaseSeq: 5,
-      contentVersion: "2026.10.1",
+      releaseSeq: 6,
+      contentVersion: "2026.10.2",
       schemaVersion: 1,
-      questionsUrl: "./questions-2026.10.1.json",
-      sha256: sha(patchText),
+      questionsUrl: "./questions-2026.10.2.json",
+      sha256: sha(patch2Text),
     });
   });
   it("ships the same deck as the bundled fallback", () => {
-    expect(read("questions.json")).toBe(patchText);
+    expect(read("questions.json")).toBe(patch2Text);
   });
   it("keeps historical releases intact for rollback", () => {
     expect(sha(read("questions-2026.09.2.json"))).toBe("bc0a991b76707e7abd5a4556ab62ae91944fb9346dacc4f559451ad431781852");
     expect(sha(releaseText)).toBe("3fcd072a9186ea75ecda163fa093e33513e0735e22cbe223701954a92ab37a9a");
     expect(previous.releaseSeq).toBeLessThan(release.releaseSeq);
     expect(release.releaseSeq).toBeLessThan(patch.releaseSeq);
+    expect(sha(patchText)).toBe("d7b6e60d42e93a297b7c0f9129f9bd12ee729a0aecaa8cfa75e5471206f140ec");
+    expect(patch.releaseSeq).toBeLessThan(patch2.releaseSeq);
   });
   it("exposes no editorial provenance in any public file", () => {
     const publicFiles = readdirSync(data).map((f) => read(f));

@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 // @ts-check
-// Builds content release 2026.10.1 from the published 2026.10.0 by applying
+// Builds a patch content release from the previous published release by applying
 // whole-text English corrections. Ids, order, categories, Romanian and every
 // flag are unchanged, so favourites and history stay valid.
 //
-// Usage: node scripts/patch-release.mjs [--check]
 //   (no flag)  write public/data/questions-<contentVersion>.json (refuses to overwrite a different file)
 //   --check    rebuild in memory and exit non-zero if the published file differs
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,10 +12,19 @@ import { fileURLToPath } from "node:url";
 import { formatReport, validateDeck } from "../src/content/validate.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const CONTENT_VERSION = "2026.10.1";
-const RELEASE_SEQ = 5;
-const PUBLISHED_AT = "2026-10-02T10:30:00Z";
-const BASE = join(root, "public/data/questions-2026.10.0.json");
+// Patch releases, each built from the previous immutable file. Default: the latest.
+// Usage: node scripts/patch-release.mjs [contentVersion] [--check]
+const PATCHES = {
+  "2026.10.1": { base: "2026.10.0", seq: 5, publishedAt: "2026-10-02T10:30:00Z" },
+  "2026.10.2": { base: "2026.10.1", seq: 6, publishedAt: "2026-10-02T12:30:00Z" },
+};
+const requested = process.argv.slice(2).find((a) => !a.startsWith("--"));
+const CONTENT_VERSION = requested ?? Object.keys(PATCHES).at(-1);
+const patch = PATCHES[/** @type {keyof typeof PATCHES} */ (CONTENT_VERSION)];
+if (!patch) throw new Error(`unknown patch release ${CONTENT_VERSION}`);
+const RELEASE_SEQ = patch.seq;
+const PUBLISHED_AT = patch.publishedAt;
+const BASE = join(root, `public/data/questions-${patch.base}.json`);
 const CORRECTIONS = join(root, `content/release-${CONTENT_VERSION}/corrections.json`);
 const OUT = join(root, `public/data/questions-${CONTENT_VERSION}.json`);
 

@@ -1,10 +1,10 @@
 # Autonom Icebreakers
 
-Internal Confidential · app v0.1.5 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
+Internal Confidential · app v0.1.6 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
-**Current content: release `2026.10.1` (releaseSeq 5) — 2026.10.0 with three English typo fixes ([content/RELEASE_2026.10.1.md](content/RELEASE_2026.10.1.md)).** Built on **content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories, app v0.1.4.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
+**Current content: release `2026.10.2` (releaseSeq 6) — 35 English corrections from the ChatGPT review ([content/RELEASE_2026.10.2.md](content/RELEASE_2026.10.2.md); review record [reviews/2026-10-02_review_chatgpt_v1.0.md](reviews/2026-10-02_review_chatgpt_v1.0.md)), on top of 2026.10.1 (three typo fixes).** Built on **content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories, app v0.1.4.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
 
 ## Question source [2026-10-02]
 

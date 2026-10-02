@@ -1,0 +1,180 @@
+{
+  "_about": "English corrections for 2026.10.2 from the ChatGPT translation review (gpt-6-astra, 2026-10-02, jobs cx_20261002114826_29434cbd and cx_20261002115007_29a830b3), assessed and adopted by claude-code on Marius's instruction to use ChatGPT as reviewer. 36 flagged of 368 Claude drafts; 35 adopted (some reworded), FE-037 rejected (\"mai mult\" reads as \"the most\" in context). Each `from` must match 2026.10.1 exactly. Reason codes: M meaning, G grammar, U unnatural. The Google Sheet does not hold these English drafts.",
+  "corrections": {
+    "SRC-122": {
+      "from": "What song do you have the most fun to with your friends?",
+      "to": "What song gets you and your friends having the most fun?",
+      "reason": "U: \"have the most fun to\" is not idiomatic"
+    },
+    "FE-007": {
+      "from": "What helps you pick a good habit back up after you've lost the rhythm?",
+      "to": "What helps you get back into a good habit after a break?",
+      "reason": "U: \"lost the rhythm\" is unnatural"
+    },
+    "FE-018": {
+      "from": "How do you choose the moment when you know enough and it is time to act?",
+      "to": "How do you decide when you know enough and it's time to act?",
+      "reason": "U: more natural"
+    },
+    "FE-021": {
+      "from": "What task did you hand over to someone else and were pleasantly surprised by the result?",
+      "to": "What task did you hand over to someone else, only to be pleasantly surprised by the result?",
+      "reason": "G: question/statement coordination"
+    },
+    "FE-025": {
+      "from": "What feedback about yourself did you reject at first but came to appreciate?",
+      "to": "What feedback about yourself did you reject at first but later come to appreciate?",
+      "reason": "G: verb form after \"did\""
+    },
+    "FE-028": {
+      "from": "What unwritten rule did you change, and things went better afterwards?",
+      "to": "What unwritten rule did you change that made things go better?",
+      "reason": "G: question joined to a declarative clause"
+    },
+    "FE-039": {
+      "from": "What distraction did you remove and immediately notice the difference?",
+      "to": "What distraction did you remove that made an immediate difference?",
+      "reason": "G: faulty coordination"
+    },
+    "FE-043": {
+      "from": "What did you refuse to gain because the price didn't seem right to you?",
+      "to": "What did you turn down because the price didn't seem right to you?",
+      "reason": "U: \"refuse to gain\" is unnatural"
+    },
+    "FE-052": {
+      "from": "What could you simplify to have more attention for the people close to you?",
+      "to": "What could you simplify so you can give more attention to the people close to you?",
+      "reason": "U: \"give attention to\""
+    },
+    "FE-055": {
+      "from": "What compliment have you received that you still remember how it made you feel?",
+      "to": "Which compliment do you still remember because of how it made you feel?",
+      "reason": "G: malformed relative clause"
+    },
+    "FE-056": {
+      "from": "What part of the future makes you curious without feeling the need to plan it?",
+      "to": "What part of the future are you curious about without feeling the need to plan it?",
+      "reason": "G: dangling participle"
+    },
+    "FE-061": {
+      "from": "What true thing about you seems hard to believe when people first meet you?",
+      "to": "What fact about you seems hard to believe when people first meet you?",
+      "reason": "U: \"fact about you\""
+    },
+    "FE-086": {
+      "from": "When did you give up a solution that was good for you so that something better could come out for the group?",
+      "to": "When did you give up a solution that was good for you so things could work out better for the group?",
+      "reason": "U: literal rendering"
+    },
+    "FE-097": {
+      "from": "What misunderstanding taught you to ask before interpreting?",
+      "to": "What misunderstanding taught you to ask questions before drawing conclusions?",
+      "reason": "U: incomplete in spoken English"
+    },
+    "FE-114": {
+      "from": "What did you have to unlearn when you moved into a new role?",
+      "to": "What did you unlearn when you moved into a new role?",
+      "reason": "M: \"have to\" added necessity absent from the Romanian"
+    },
+    "FE-117": {
+      "from": "How do you like someone to tell you they can't accept a request?",
+      "to": "How do you like someone to tell you they can't do what you've asked?",
+      "reason": "U: \"accept a request\" sounds administrative"
+    },
+    "FE-118": {
+      "from": "What responsibility did you take on on your own initiative and are glad you did?",
+      "to": "What responsibility are you glad you took on without being asked?",
+      "reason": "G: incompatible clause structures"
+    },
+    "FE-120": {
+      "from": "How do you make room for other people's contributions when you talk about a shared success?",
+      "to": "How do you give others credit when you talk about a shared success?",
+      "reason": "M: Romanian asks about acknowledging others' merits"
+    },
+    "RF-017": {
+      "from": "How do you like to celebrate a success of someone you care about?",
+      "to": "How do you like to celebrate when someone you care about succeeds?",
+      "reason": "U: awkward possessive"
+    },
+    "RF-028": {
+      "from": "What expectation could you adjust to enjoy your life as it is now more?",
+      "to": "What expectation could you adjust to enjoy your current life more?",
+      "reason": "U: awkward word order"
+    },
+    "RF-040": {
+      "from": "How do you like to put things right after a misunderstanding?",
+      "to": "How do you like to put things right together after a misunderstanding?",
+      "reason": "M: Romanian describes repairing jointly"
+    },
+    "RF-062": {
+      "from": "What would you like to give back to the community from what you have learned so far?",
+      "to": "What would you like to offer the community based on what you've learned so far?",
+      "reason": "U: awkward; implied repayment"
+    },
+    "OTHER-006": {
+      "from": "What brief encounter stayed on your mind for a long time?",
+      "to": "What brief encounter stayed in your mind for a long time?",
+      "reason": "M: \"on your mind\" means preoccupation, not memory"
+    },
+    "OTHER-036": {
+      "from": "What postponed conversation could make working together simpler?",
+      "to": "Which conversation that you've been putting off could make working together easier?",
+      "reason": "U: stiff"
+    },
+    "OTHER-059": {
+      "from": "What nickname would suit a talent of yours that few people know about?",
+      "to": "What nickname would suit you, based on a talent few people know you have?",
+      "reason": "M: the nickname suits you, not the talent"
+    },
+    "OTHER-071": {
+      "from": "What recent curiosity took you in an unexpected direction?",
+      "to": "What have you been curious about recently that took you in an unexpected direction?",
+      "reason": "U: \"a recent curiosity\" suggests an oddity"
+    },
+    "TR-010": {
+      "from": "How do you show someone that you respect them even when you turn down what they ask?",
+      "to": "How do you show someone that you respect them even when you turn down their request?",
+      "reason": "U: idiom"
+    },
+    "TR-011": {
+      "from": "What helps you tell apart what someone is asking for from what really matters to them?",
+      "to": "What helps you distinguish what someone is asking for from what really matters to them?",
+      "reason": "G: mixed constructions"
+    },
+    "TR-038": {
+      "from": "What promise made to colleagues comes more naturally to you to keep than a target imposed from outside?",
+      "to": "What promise to your colleagues feels more natural to fulfil than a goal imposed on you?",
+      "reason": "U: word order; \"keep a target\""
+    },
+    "TR-042": {
+      "from": "Someone from which completely different profession would you like to talk with about how they solve problems?",
+      "to": "If you could talk to someone in a completely different profession about how they solve problems, which profession would you choose?",
+      "reason": "U: hard to read aloud"
+    },
+    "TR-049": {
+      "from": "What promise of a new technology appeals to you, but you would like to check for yourself?",
+      "to": "What appealing promise about a new technology would you like to test for yourself?",
+      "reason": "U: shifting subject/object"
+    },
+    "RES-021": {
+      "from": "How can you tell that an invitation comes from genuine pleasure and not just politeness?",
+      "to": "How can you tell that someone is inviting you because they want to, not just out of politeness?",
+      "reason": "U: literal rendering"
+    },
+    "RES-041": {
+      "from": "When did you help a customer by telling them the right solution wasn't with you?",
+      "to": "When did you help a customer by telling them you didn't have the right solution?",
+      "reason": "U: literal rendering"
+    },
+    "EDU-CASE-011": {
+      "from": "What kind of competition motivates you, and what kind takes the fun out of it?",
+      "to": "What kind of competition motivates you, and what kind saps your enthusiasm?",
+      "reason": "M: \"îți taie cheful\" is broader than losing the fun"
+    },
+    "EDU-CASE-048": {
+      "from": "When did you do your part very well, but the shared result still didn't work out?",
+      "to": "When did you do your part very well, yet the overall result still fell short?",
+      "reason": "U: unnatural collocation"
+    }
+  }
+}
