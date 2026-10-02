@@ -105,11 +105,8 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
         start.current = null;
       }}
     >
-      {question && category && !noticeText && (
-        <p className="card__category" lang={lang}>
-          {category[lang]}
-        </p>
-      )}
+      {/* Logo top-left, category bottom-left (CEO request 2026-10-02, decision 59). */}
+      <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
       <div className="card__body" ref={bodyRef}>
         {noticeText ? (
           <div className="card__notice">
@@ -122,7 +119,11 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
           </p>
         )}
       </div>
-      <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
+      {question && category && !noticeText && (
+        <p className="card__category" lang={lang}>
+          {category[lang]}
+        </p>
+      )}
       {question && !present && !noticeText && (
         <button
           type="button"

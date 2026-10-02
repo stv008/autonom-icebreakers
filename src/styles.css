@@ -289,7 +289,7 @@ ul {
   max-width: 44rem;
   min-height: 14rem;
   margin: 0 auto;
-  padding: 1.25rem 1.25rem 3.5rem;
+  padding: 1.25rem 1.25rem 1.25rem;
   border-radius: calc(var(--radius) + 8px);
   color: var(--card-ink);
   background:
@@ -391,7 +391,8 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  max-width: calc(100% - 3.25rem); /* never runs under the star */
+  margin-top: 0.75rem;
   padding: 0.3rem 0.75rem 0.3rem 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
@@ -461,14 +462,15 @@ ul {
   justify-content: center;
   gap: 0.5rem;
 }
-/* Autonom logo on every card (decision 49): bottom-left, opposite the star.
+/* Autonom logo on every card (decision 49), top-left since decision 59;
+   the category pill sits bottom-left, opposite the star.
    Decorative (alt=""), the top bar already names the brand. */
 .card__logo {
-  position: absolute;
-  left: 1.25rem;
-  bottom: 1.1rem;
+  align-self: flex-start;
+  flex: none;
   height: 1.375rem; /* width follows the 553:187 ratio */
   width: auto;
+  margin-bottom: 0.75rem;
   pointer-events: none;
 }
 /* Buttons sitting on the blue card surface. */
@@ -641,19 +643,17 @@ ul {
 .app--present .card {
   max-width: none;
   min-height: 0;
-  padding: 2rem clamp(1rem, 5vw, 4rem) 4rem; /* bottom keeps text clear of the logo */
+  padding: 2rem clamp(1rem, 5vw, 4rem) 1.75rem;
 }
 .app--present .card__text {
   font-size: clamp(2rem, 6vw + 1.2rem, 4.5rem);
   text-align: center;
 }
 .app--present .card__logo {
-  left: clamp(1rem, 5vw, 4rem);
-  bottom: 1.25rem;
   height: 1.75rem;
 }
 .app--present .card__category {
-  align-self: center;
+  max-width: 100%; /* no star in present mode */
   font-size: 0.9rem;
 }
 .controls--present {
@@ -675,10 +675,6 @@ ul {
     padding-right: 1.5rem;
   }
   .card {
-    padding: 2rem 2rem 4rem;
-  }
-  .card__logo {
-    left: 2rem;
-    bottom: 1.4rem;
+    padding: 2rem 2rem 1.5rem;
   }
 }
