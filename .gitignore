@@ -6,3 +6,5 @@ dev-dist
 *.local
 .claude/
 session-logs/
+outputs/
+content/SOURCES.private.md

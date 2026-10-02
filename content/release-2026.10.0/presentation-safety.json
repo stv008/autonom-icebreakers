@@ -1,0 +1,16 @@
+{
+  "_about": "presentationSafe decisions for questions new in 2026.10.0. The original 107 keep their published value (true). v1 of the app does not read this field (README: reserved), so it changes no runtime behaviour yet; it records the editorial judgement for a future present-mode filter.",
+  "criteria": "BUILD_PROMPT.md §6 topic exclusions (dating, politics, alcohol, health, money, family status) plus prompts that assume or probe a private family/partner situation or personal finances, which could push a vulnerable disclosure in front of a shared screen.",
+  "notPresentationSafe": {
+    "RF-002": "family / people considered family",
+    "RF-006": "assumes a family of one's own",
+    "RF-022": "probes personal support network beyond family",
+    "RF-027": "assumes a partner (\"both of you\")",
+    "RES-022": "assumes a family meal setting",
+    "RES-008": "personal spending",
+    "RES-009": "personal spending",
+    "RES-010": "personal saving",
+    "RES-011": "personal money reserves",
+    "EDU-CASE-010": "personal pay"
+  }
+}

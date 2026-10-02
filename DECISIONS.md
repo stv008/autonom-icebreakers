@@ -91,6 +91,16 @@ Sample content was re-released as `2026.09.1-sample` (`releaseSeq` 2, new immuta
 43. **Dark-scheme variant derived, pending Marketing.** The master file has six variants (horizontal / vertical × no tagline / EN / RO) but no negative version. `public/logo-autonom-dark.svg` keeps the four-colour mark and sets only the wordmark to white so it stays legible on `--bg #0f0f1a`; served via `<picture>` + `prefers-color-scheme`. This is a deviation from the master and belongs in `Context/brand/exceptii-registru.md` as a new row once Marketing confirms (or supplies the official negative logo, which then replaces the derived file).
 44. **App icon still a placeholder.** The mark from the logo could become the icon, but §9.6 says Marketing supplies the approved icon; unchanged.
 
+## Content release 2026.10.0 — eight categories (2026-10-02, claude-code)
+
+*Numbered from 51 because `origin/main` already uses 45–50 (v0.1.2/v0.1.3), which are not yet merged locally.*
+
+51. **Taxonomy extended to eight categories, by CEO authorisation (2026-10-02).** `curiosity_play`, `thinking_decisions` and `balance_presence` were proposed in editorial collection v1.1 and are approved for implementation. They were added to `CATEGORIES` (`types.ts`) and `CATEGORY_IDS` (`validate.js`), appended after the original five so the picker order is stable. Every other surface derives from these lists (picker, card label, draw pools, persisted-scope sanitiser), so no further hard-coded assumptions needed changing; a test fails if the lists drift. This overrides BUILD_PROMPT §5.2 "exactly five".
+52. **Release built by script, not by hand.** `scripts/import-collection.mjs` reads only `id/category/ro/en` from the editorial consolidation. Private provenance (titles, Drive URLs, locators, notes) never reaches `public/`. The 107 published entries are copied verbatim from `questions-2026.09.2.json`, and the script fails if the editorial source disagrees with them. New editorial ids are kept as ids (no migration, so no persisted-state risk).
+53. **English for 368 Romanian-only questions drafted by Claude**, stored next to the release in `content/release-2026.10.0/en-translations.json` (outside `public/`) so they are reviewable and the build reproduces. One source English text (`SRC-118`) was corrected for a dropped "Why?". This is a separate `corrections` entry that fails the build if the source changes.
+54. **`presentationSafe` set conservatively but still unused.** It stays reserved in v1 (no filter added: present mode was not in scope to change). The original 107 keep `true`. Ten new family/partner/money prompts are `false` with reasons in `content/release-2026.10.0/presentation-safety.json`.
+55. **No app version bump.** `package.json` stays 0.1.1 locally; `origin/main` is at 0.1.3. The bump belongs to the integration merge (suggest 0.1.4).
+
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
 38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.

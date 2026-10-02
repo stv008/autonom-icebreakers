@@ -5,7 +5,10 @@ export type CategoryId =
   | "values"
   | "personal_growth"
   | "relationships"
-  | "professional";
+  | "professional"
+  | "curiosity_play"
+  | "thinking_decisions"
+  | "balance_presence";
 
 export const CATEGORIES = [
   { id: "me_life_dreams", ro: "Eu: viață și vise", en: "Me: Life & Dreams" },
@@ -13,6 +16,10 @@ export const CATEGORIES = [
   { id: "personal_growth", ro: "Creștere personală", en: "Personal Growth" },
   { id: "relationships", ro: "Relații", en: "Relationships" },
   { id: "professional", ro: "Profesional", en: "Professional" },
+  // Added in content release 2026.10.0 (editorial collection v1.1).
+  { id: "curiosity_play", ro: "Curiozitate și joacă", en: "Curiosity & Play" },
+  { id: "thinking_decisions", ro: "Gândire și decizii", en: "Thinking & Decisions" },
+  { id: "balance_presence", ro: "Echilibru și prezență", en: "Balance & Presence" },
 ] as const satisfies readonly { id: CategoryId; ro: string; en: string }[];
 
 export const CATEGORY_IDS: readonly CategoryId[] = CATEGORIES.map((c) => c.id);

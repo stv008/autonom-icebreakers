@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import sample from "../public/data/questions.json";
 import type { Deck } from "../src/types.ts";
@@ -296,5 +298,42 @@ describe("loadInitialDeck", () => {
     const pending = mod.loadInitialDeck();
     await vi.advanceTimersByTimeAsync(8100);
     expect(await pending).toBeNull();
+  });
+});
+
+describe("published releases: 2026.09.2 → 2026.10.0 (real files)", () => {
+  const dataDir = join(__dirname, "..", "public", "data");
+  const file = (name: string) => readFileSync(join(dataDir, name), "utf8");
+  const realManifest = JSON.parse(file("manifest.json")) as { releaseSeq: number; contentVersion: string; questionsUrl: string; sha256: string };
+
+  function serveReal(manifest: object, name: string) {
+    serve(`/data/${name}`, file(name));
+    serve("/data/manifest.json", JSON.stringify(manifest));
+  }
+
+  it("fresh install: the bundled fallback is the 479-question deck", async () => {
+    serve("/data/questions.json", file("questions.json"));
+    const loaded = await mod.loadInitialDeck();
+    expect(loaded?.origin).toBe("bundled");
+    expect(loaded?.deck.contentVersion).toBe("2026.10.0");
+    expect(loaded?.deck.questions).toHaveLength(479);
+  });
+
+  it("upgrade: a device holding 2026.09.2 (seq 3) stages the published manifest, then rolls back by a higher seq", async () => {
+    const old = file("questions-2026.09.2.json");
+    serveReal({ releaseSeq: 3, contentVersion: "2026.09.2", schemaVersion: 1, questionsUrl: "./questions-2026.09.2.json", sha256: sha(old) }, "questions-2026.09.2.json");
+    expect((await mod.checkForUpdate(2, { force: true })).kind).toBe("staged");
+    expect((await mod.readSavedRelease())?.questions).toHaveLength(107);
+
+    serveReal({ ...realManifest, schemaVersion: 1 }, "questions-2026.10.0.json");
+    expect(await mod.checkForUpdate(3, { force: true })).toEqual({ kind: "staged", releaseSeq: 4, contentVersion: "2026.10.0" });
+    const saved = await mod.readSavedRelease();
+    expect(saved?.questions).toHaveLength(479);
+    expect(new Set(saved?.questions.map((q) => q.category)).size).toBe(8);
+
+    // Rollback: seq 5 pointing at the immutable 2026.09.2 file.
+    serveReal({ releaseSeq: 5, contentVersion: "2026.09.2", schemaVersion: 1, questionsUrl: "./questions-2026.09.2.json", sha256: sha(old) }, "questions-2026.09.2.json");
+    expect((await mod.checkForUpdate(4, { force: true })).kind).toBe("staged");
+    expect((await mod.readSavedRelease())?.questions).toHaveLength(107);
   });
 });

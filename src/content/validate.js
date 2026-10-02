@@ -20,6 +20,9 @@ export const CATEGORY_IDS = Object.freeze([
   "personal_growth",
   "relationships",
   "professional",
+  "curiosity_play",
+  "thinking_decisions",
+  "balance_presence",
 ]);
 
 export const SOURCES = Object.freeze(["2026", "legacy"]);

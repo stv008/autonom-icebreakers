@@ -1,16 +1,26 @@
 # Autonom Icebreakers
 
-Internal Confidential · v0.1.1 (prototype, sample content) · 2026-09-17 · initiated-by: claude-code
+Internal Confidential · app v0.1.1 (prototype, real deck) · documentation v1.4 · 2026-10-02 · initiated-by: codex; v1.4 update by claude-code
+
+## Start here: current release [NOU 2026-10-02, v1.4]
+
+**Content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories. Implemented and verified locally; NOT live.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
+
+## Question source [2026-10-02]
+
+The confirmed source is the internal Google Sheets document **Joc intrebari** (link and identifiers in the git-ignored local file `content/SOURCES.private.md`; this repository is public). Read **[content/SOURCES.md](content/SOURCES.md)** first for provenance, the verified local snapshot, access boundaries and the next-session starting point. Similarly named Excel copies are not the confirmed source.
+
+The app uses an exported, versioned copy; it does not read the spreadsheet directly. **Current editorial collection v1.1 — 479 questions** (local only: `outputs/01a0fb5d-c648-7313-908b-50a3c76fb269/v1.1/Autonom_Icebreakers_extins_codex_2026-10-02_v1.1.xlsx`) includes the completed YPO and Education consolidation stages, with source URLs, reading coverage and deduplication decisions. The **YPO v1.0 snapshot — 347 questions** (local only, same folder) is preserved. `outputs/` holds private provenance (source titles, Drive URLs, inventory) and is git-ignored — it never leaves this machine. See [content/SOURCES.md](content/SOURCES.md) for reusable support files and explicit reading limitations. That workbook-only phase changed no application data; the app release came later (2026.10.0, above).
 
 A single-screen Progressive Web App that replaces Autonom's physical ice-breaker question cards. A facilitator opens it on a phone (or shares it on a screen), shows one question, reads it aloud, moves on. Romanian and English, works offline after one online visit, no login, no accounts, no analytics.
 
-> **Prototype status.** Built from `BUILD_PROMPT.md` v1.0 as a throwaway prototype ahead of CEO decisions D1–D4 and the Phase 1 no-build trial verdict. Since content release **2026.09.2** (2026-09-17, CEO instruction) it ships the **real Autonom deck** from the editorial sheet — 107 questions, English drafts and edits flagged for the editorial audit in `content/RELEASE_2026.09.2.md`. The governed plan and provenance live in `../Autonom-Cowork-Setup/Output/2026-Q3/`. Every choice the prompt left open is listed in `DECISIONS.md`.
+> **Prototype status.** Built from `BUILD_PROMPT.md` v1.0 as a throwaway prototype ahead of CEO decisions D1–D4 and the Phase 1 no-build trial verdict. Since content release **2026.09.2** (2026-09-17, CEO instruction) it ships the **real Autonom deck** from the editorial sheet — 107 questions, English drafts and edits flagged for the editorial audit in `content/RELEASE_2026.09.2.md`. Release **2026.10.0** (2026-10-02, local only) expands it to 479 questions in eight categories — `content/RELEASE_2026.10.0.md`. The governed plan and provenance live in `../Autonom-Cowork-Setup/Output/2026-Q3/`. Every choice the prompt left open is listed in `DECISIONS.md`.
 
 **Placeholder icon** — `public/favicon.svg` and the PNGs derived from it are placeholders. Replace them with the approved Autonom icon from Marketing before rollout.
 
 ## What it does
 
-- One question at a time from five categories (Me: Life & Dreams · Values · Personal Growth · Relationships · Professional), or from all of them.
+- One question at a time from eight categories (Me: Life & Dreams · Values · Personal Growth · Relationships · Professional · Curiosity & Play · Thinking & Decisions · Balance & Presence — the last three since content release 2026.10.0), or from all of them.
 - **Global no-repeat**: a question is never shown twice until the whole deck is exhausted, no matter how you switch categories. Category exhausted → "All remaining" or "Restart deck". Deck exhausted → "Shuffle again" (never repeats the last card immediately). Nothing resets silently.
 - Back / Next buttons, swipe left/right on the card, keyboard on a shared screen (→ / Space = next, ← = back, L = language, F = favourite, P = present, Esc = exit).
 - Favourites (star), browsed from the category picker; browsing never consumes from the deck.
@@ -94,7 +104,7 @@ The app never reads the editorial sheet. Content flows **sheet → validated rel
 }
 ```
 
-- `id` is stable and never recycled. `category` is one of `me_life_dreams | values | personal_growth | relationships | professional`. `active: false` removes a question from every pool (and from users' seen/favourite lists on activation). `source` is `"2026"` or `"legacy"` (provenance only). `presentationSafe` is reserved (v1 treats all as true). `hu` is reserved for Hungarian (unused in v1). `ro` and `en` are required, plain text with correct Romanian diacritics (ș ț with comma below), one approved wording per id.
+- `id` is stable and never recycled. `category` is one of `me_life_dreams | values | personal_growth | relationships | professional | curiosity_play | thinking_decisions | balance_presence` (the last three added in app code with release 2026.10.0; older app bundles reject releases that use them and keep their last good deck until the new service worker activates). `active: false` removes a question from every pool (and from users' seen/favourite lists on activation). `source` is `"2026"` or `"legacy"` (provenance only). `presentationSafe` is reserved (v1 treats all as true). `hu` is reserved for Hungarian (unused in v1). `ro` and `en` are required, plain text with correct Romanian diacritics (ș ț with comma below), one approved wording per id.
 
 ### Validation rules (client and CLI share `src/content/validate.js`)
 
@@ -140,7 +150,7 @@ Technically: no cookies, no third-party requests (fonts are self-hosted), no ana
 
 ## Non-goals (v1)
 
-Login, accounts, profiles, cloud sync · push notifications · analytics, telemetry, cookies · payments, ads · sharing question text or images · streaks, scores, gamification · rooms, multiplayer, QR join · settings screen · onboarding tour · category management or in-app editing · visible alternative phrasings · a sixth "Classic" category · Hungarian UI · native wrappers · backend API · anything needing a Google account at runtime · hot-swapping content while a card is on screen.
+Login, accounts, profiles, cloud sync · push notifications · analytics, telemetry, cookies · payments, ads · sharing question text or images · streaks, scores, gamification · rooms, multiplayer, QR join · settings screen · onboarding tour · category management or in-app editing · visible alternative phrasings · a "Classic" category (the eight 2026.10.0 categories are the full taxonomy) · Hungarian UI · native wrappers · backend API · anything needing a Google account at runtime · hot-swapping content while a card is on screen.
 
 ## Project layout
 
@@ -157,7 +167,8 @@ src/
   components/      TopBar, ScopePicker, Card, Controls, PresentLayer, AboutSheet, InstallHint, Sheet, UpdateBanner
   pwa.ts           service-worker registration (prompt mode, never auto-reload)
 scripts/validate-content.mjs   CLI validator
-tests/             Vitest: deck, storage, content validation + CLI, update pipeline
+scripts/import-collection.mjs  builds questions-2026.10.0.json from the editorial consolidation (canonical fields only)
+tests/             Vitest: deck, storage, content validation + CLI, update pipeline, release 2026.10.0 (taxonomy, counts, manifest/sha, provenance, upgrade)
 ```
 
 ## Accessibility
@@ -177,6 +188,10 @@ Not covered by tests: Cache Storage quota denial / `put()` failure (the code pat
 Verified on the deployed test site (`https://stv008.github.io/autonom-icebreakers/`, same day): service worker registers and activates, Workbox precache holds the 13 expected entries, the app becomes controlled on the second load and the About sheet reports "Available offline".
 
 Still not verified: an actual offline launch on a phone in airplane mode; the code-update banner path (needs a second deploy while a client is open); Space/Enter on a focused button (the automation cannot trigger native button activation; the handler is code-verified to ignore button targets); VoiceOver / TalkBack. The embedded review browser used during the build refuses service-worker script fetches on `localhost`, so SW behaviour was only checked on the HTTPS deployment.
+
+## Verification notes (2026-10-02, release 2026.10.0, local only)
+
+`npm run validate` PASS (1 warning, `va-002` length, inherited) · `npm test` 86/86 across 6 files (20 new: `tests/release.test.ts` and two real-file upgrade/rollback cases in `tests/loadContent.test.ts`) · `npm run build` exit 0, precache 15 entries, `dist/` scanned: no workbook, report, script, inventory or URL. Browser smoke test on `npm run preview` (service worker active in the embedded browser this time) at 1280×800 and 375×812: picker lists all eight categories with counts · a new category draws only from itself · RO/EN labels and the present mode on a new category · longest new EN (127 chars) and `va-002` (234 chars) fit without horizontal scroll · a persisted new-category scope and favourite survive reload · a device seeded with the 2026.09.2 release shows "New version available", keeps the card, and after Reload runs 2026.10.0 (478 remaining, favourite and history kept, old entry pruned) · About shows release #4 and "Available offline" · no console errors. Not verified: a real phone, airplane-mode launch, the old v0.1.1 bundle meeting release 4 in a live browser (covered by the validator-rejection test and reasoning, see the release note), the live site.
 
 ## Test site
 

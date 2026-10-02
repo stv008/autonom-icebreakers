@@ -28,13 +28,13 @@ describe("bundled deck (§6 shape rules, §16.12)", () => {
     expect(result.ok).toBe(true);
     expect(result.deck).not.toBeNull();
   });
-  it("has ≥36 questions, ≥6 per category, five categories, no emoji, RO diacritics", () => {
+  it("has ≥36 questions, ≥6 per category, every category used, no emoji, RO diacritics", () => {
     const qs = questionsOf(clone());
     expect(qs.length).toBeGreaterThanOrEqual(36);
     for (const c of CATEGORY_IDS) {
       expect(qs.filter((q) => q["category"] === c && q["active"] === true).length).toBeGreaterThanOrEqual(6);
     }
-    expect(new Set(qs.map((q) => q["category"])).size).toBe(5);
+    expect(new Set(qs.map((q) => q["category"])).size).toBe(CATEGORY_IDS.length);
     const emoji = /\p{Extended_Pictographic}/u;
     for (const q of qs) {
       expect(emoji.test(String(q["ro"]))).toBe(false);

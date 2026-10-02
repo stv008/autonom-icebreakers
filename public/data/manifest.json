@@ -1,7 +1,7 @@
 {
-  "releaseSeq": 3,
-  "contentVersion": "2026.09.2",
+  "releaseSeq": 4,
+  "contentVersion": "2026.10.0",
   "schemaVersion": 1,
-  "questionsUrl": "./questions-2026.09.2.json",
-  "sha256": "bc0a991b76707e7abd5a4556ab62ae91944fb9346dacc4f559451ad431781852"
+  "questionsUrl": "./questions-2026.10.0.json",
+  "sha256": "3fcd072a9186ea75ecda163fa093e33513e0735e22cbe223701954a92ab37a9a"
 }
