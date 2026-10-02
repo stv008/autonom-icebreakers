@@ -4,7 +4,7 @@ Internal Confidential · app v0.1.4 (prototype, real deck) · documentation v1.5
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
-**Content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories, app v0.1.4.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
+**Current content: release `2026.10.1` (releaseSeq 5) — 2026.10.0 with three English typo fixes ([content/RELEASE_2026.10.1.md](content/RELEASE_2026.10.1.md)).** Built on **content release `2026.10.0` (releaseSeq 4) — 479 questions in eight categories, app v0.1.4.** Record, counts, translation and presentation-safety decisions, compatibility, deploy caveats and rollback: **[content/RELEASE_2026.10.0.md](content/RELEASE_2026.10.0.md)**. Build: `node scripts/import-collection.mjs` (from `outputs/…/v1.1/support/consolidated.json` + `content/release-2026.10.0/`), `--check` to prove reproducibility. Authorised by Marius on 2026-10-02. That supersedes the earlier "workbook only, no app change" scope below, which stays as history.
 
 ## Question source [2026-10-02]
 

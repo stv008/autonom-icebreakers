@@ -28,8 +28,8 @@ Internal Confidential · 2026-10-02 · initiated-by: claude-code · releaseSeq 5
 ## Open
 
 - **The editorial sheet still has the old texts.** Apply the same three fixes there, or a later import from the sheet will bring the typos back.
-- No app code changed. The release reaches installed apps through the normal manifest check. No service-worker update is needed, because the version-named file is not precached.
+- No app code changed. Installed apps get the release through the normal manifest check (download, verify, "New version available"). The bundled fallback `questions.json` is precached and changed with it, so the build also ships a new service worker; its update banner activates both on Reload. *(Corrected 2026-10-02 by claude-code: an earlier draft said no service-worker update was needed.)*
 
 ## Deploy
 
-Not pushed. It goes live with `git push origin main` (Pages deploys `main`) once Marius approves.
+Taken over and published by claude-code on Marius's instruction ("take it over", 2026-10-02): gates re-run (validate PASS, 89/89 tests, build exit 0, both release scripts `--check` reproducible), then `git push origin main` → Pages. Live verification is recorded in the session handoff `session-logs/2026-10-02_app-release-2026.10.0_claude-code_v1.2.md` (local).

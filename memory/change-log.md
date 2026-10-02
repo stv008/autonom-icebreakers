@@ -2,6 +2,13 @@
 
 Internal Confidential · v1.3 · initiated-by: codex; v1.3 entry claude-code
 
+## 2026-10-02 — Content release 2026.10.1 (EN typos) [NOU]
+
+- Invocation: CEO instruction to fix the English typos (built and committed locally by a parallel claude-code session, `fa7af9b`), then "take it over" to this session: verify, correct docs, publish.
+- Result: three English texts fixed (ml-007, ml-013, ml-023); everything else identical to 2026.10.0; manifest seq 5, sha256 `d7b6e60d…140ec`. Release-note correction: the build does ship a new service worker (the precached fallback changed).
+- Verification: validate PASS, 89/89 tests, build exit 0, `patch-release.mjs --check` and `import-collection.mjs --check` reproducible; pushed to `main`; live check recorded in the local session handoff v1.2.
+- Open: apply the same three fixes in the Google Sheet. No OS-layer files changed; F4 not triggered.
+
 ## 2026-10-02 — App content release 2026.10.0 [NOU]
 
 - Invocation: explicit user authorisation (2026-10-02) to implement the completed 479-question collection and the three proposed categories in the app, verify, document and commit locally. No push, merge or deploy.
