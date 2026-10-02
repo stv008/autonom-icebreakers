@@ -1,0 +1,20 @@
+{
+  "_about": "English typo corrections for 2026.10.1, on CEO instruction 2026-10-02. Each entry replaces the whole English text; `from` must match 2026.10.0 exactly or the build fails. The editorial sheet must receive the same fixes, or a later import will undo them.",
+  "corrections": {
+    "ml-007": {
+      "from": "What is you favorite joke?",
+      "to": "What is your favourite joke?",
+      "reason": "\"you\" → \"your\"; British spelling as in the rest of the deck"
+    },
+    "ml-013": {
+      "from": "What song do you listen to when no one is aroung or with your headpones on?",
+      "to": "What song do you listen to when no one is around or with your headphones on?",
+      "reason": "\"aroung\" → \"around\", \"headpones\" → \"headphones\""
+    },
+    "ml-023": {
+      "from": "How would your famiy describe you in 3 words?",
+      "to": "How would your family describe you in 3 words?",
+      "reason": "\"famiy\" → \"family\""
+    }
+  }
+}

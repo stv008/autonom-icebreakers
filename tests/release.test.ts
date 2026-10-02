@@ -25,6 +25,8 @@ const releaseText = read("questions-2026.10.0.json");
 const release = JSON.parse(releaseText) as Deck;
 const previous = JSON.parse(read("questions-2026.09.2.json")) as Deck;
 const qs = release.questions;
+const patchText = read("questions-2026.10.1.json");
+const patch = JSON.parse(patchText) as Deck;
 
 const EXPECTED_BY_CATEGORY: Record<string, number> = {
   me_life_dreams: 73,
@@ -117,22 +119,51 @@ describe("release 2026.10.0", () => {
   });
 });
 
+describe("release 2026.10.1 (English typo fixes)", () => {
+  const corrections = JSON.parse(readFileSync(join(root, "content/release-2026.10.1/corrections.json"), "utf8")) as {
+    corrections: Record<string, { from: string; to: string }>;
+  };
+
+  it("passes validation as releaseSeq 5", () => {
+    expect(validateDeck(patch).errors).toEqual([]);
+    expect(patch).toMatchObject({ schemaVersion: 1, contentVersion: "2026.10.1", releaseSeq: 5 });
+  });
+
+  it("differs from 2026.10.0 only in the corrected English texts", () => {
+    expect(patch.questions).toHaveLength(qs.length);
+    patch.questions.forEach((q, i) => {
+      const c = corrections.corrections[q.id];
+      const base = qs[i]!;
+      expect(q, q.id).toEqual(c ? { ...base, en: c.to } : base);
+      if (c) expect(base.en).toBe(c.from);
+    });
+    expect(Object.keys(corrections.corrections).sort()).toEqual(["ml-007", "ml-013", "ml-023"]);
+  });
+
+  it("is reproducible from 2026.10.0 by the patch script", () => {
+    const out = execFileSync(process.execPath, [join(root, "scripts/patch-release.mjs"), "--check"], { cwd: root, encoding: "utf8" });
+    expect(out).toContain("reproduces");
+  });
+});
+
 describe("manifest and published files", () => {
-  it("points at the release with its version, seq and SHA-256", () => {
+  it("points at the latest release with its version, seq and SHA-256", () => {
     expect(manifest).toEqual({
-      releaseSeq: 4,
-      contentVersion: "2026.10.0",
+      releaseSeq: 5,
+      contentVersion: "2026.10.1",
       schemaVersion: 1,
-      questionsUrl: "./questions-2026.10.0.json",
-      sha256: sha(releaseText),
+      questionsUrl: "./questions-2026.10.1.json",
+      sha256: sha(patchText),
     });
   });
   it("ships the same deck as the bundled fallback", () => {
-    expect(read("questions.json")).toBe(releaseText);
+    expect(read("questions.json")).toBe(patchText);
   });
   it("keeps historical releases intact for rollback", () => {
     expect(sha(read("questions-2026.09.2.json"))).toBe("bc0a991b76707e7abd5a4556ab62ae91944fb9346dacc4f559451ad431781852");
+    expect(sha(releaseText)).toBe("3fcd072a9186ea75ecda163fa093e33513e0735e22cbe223701954a92ab37a9a");
     expect(previous.releaseSeq).toBeLessThan(release.releaseSeq);
+    expect(release.releaseSeq).toBeLessThan(patch.releaseSeq);
   });
   it("exposes no editorial provenance in any public file", () => {
     const publicFiles = readdirSync(data).map((f) => read(f));
