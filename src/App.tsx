@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AboutSheet } from "./components/AboutSheet.tsx";
 import { Card, type CardNotice } from "./components/Card.tsx";
 import { Controls } from "./components/Controls.tsx";
+import { DealWake } from "./components/DealWake.tsx";
 import { InstallHint } from "./components/InstallHint.tsx";
 import { PresentLayer } from "./components/PresentLayer.tsx";
 import { ScopePicker } from "./components/ScopePicker.tsx";
@@ -9,6 +10,7 @@ import { TopBar } from "./components/TopBar.tsx";
 import { UpdateBanner } from "./components/UpdateBanner.tsx";
 import { checkForUpdate, isOfflineReady, loadInitialDeck, type UpdateResult } from "./content/loadContent.ts";
 import { t } from "./i18n.ts";
+import type { DealDirection } from "./motion.ts";
 import { setupPwa, type PwaHandle } from "./pwa.ts";
 import {
   applyRelease,
@@ -49,6 +51,7 @@ export function App() {
   const [phase, setPhase] = useState<Phase>({ status: "loading" });
   const [deckState, setDeckState] = useState<DeckState>(() => initialDeckState(prefs.seenIds, prefs.lastQuestionId));
   const [currentId, setCurrentId] = useState<string | null>(null);
+  const [dealDirection, setDealDirection] = useState<DealDirection>("next");
   const [exhausted, setExhausted] = useState<Exhausted>(null);
   const [present, setPresent] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -178,6 +181,7 @@ export function App() {
 
   const goNext = () => {
     if (!deck) return;
+    setDealDirection("next");
     if (prefs.scope === "favorites") {
       const id = stepFavorites(prefs.favorites, currentId, 1);
       if (id) setCurrentId(id);
@@ -188,6 +192,7 @@ export function App() {
 
   const goPrev = () => {
     if (!deck) return;
+    setDealDirection("prev");
     if (prefs.scope === "favorites") {
       const id = stepFavorites(prefs.favorites, currentId, -1);
       if (id) setCurrentId(id);
@@ -347,6 +352,7 @@ export function App() {
       )}
 
       <main className="main">
+        <DealWake dealKey={`${currentId ?? "none"}|${notice?.kind ?? ""}`} direction={dealDirection} />
         {phase.status === "error" ? (
           <section className="card" data-category="all">
             <div className="card__body">
@@ -371,6 +377,7 @@ export function App() {
             favorite={question !== null && prefs.favorites.includes(question.id)}
             onToggleFavorite={toggleFavorite}
             onSwipe={(direction) => (direction === "next" ? goNext() : goPrev())}
+            dealDirection={dealDirection}
             actions={exhaustionActions}
           />
         )}

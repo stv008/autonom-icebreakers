@@ -1,6 +1,6 @@
 # Autonom Icebreakers
 
-Internal Confidential · app v0.1.9 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
+Internal Confidential · app v0.2.0 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
@@ -176,7 +176,7 @@ tests/             Vitest: deck, storage, content validation + CLI, update pipel
 
 ## Accessibility
 
-Every control is a real `<button>` with a visible focus ring; hit targets are ≥ 48 px; question and chrome contrast meet 7:1 / 4.5:1 on the brand tokens in both colour schemes, except that the longest questions can reach the card's line motifs (worst 2.99:1, open — DECISIONS 68); the question is announced through a polite live region without moving focus; sheets are `role="dialog"` with focus trapped and restored; state is never colour-only (`aria-pressed`, `aria-current`, underline/✓ glyphs); text is in `rem` and the layout scrolls rather than hiding controls at 200 % text size or in landscape; `prefers-reduced-motion` disables the card transition.
+Every control is a real `<button>` with a visible focus ring; hit targets are ≥ 48 px; question and chrome contrast meet 7:1 / 4.5:1 on the brand tokens in both colour schemes, except that the longest questions can reach the card's line motifs (worst 2.99:1, open — DECISIONS 68); the question is announced through a polite live region without moving focus; sheets are `role="dialog"` with focus trapped and restored; state is never colour-only (`aria-pressed`, `aria-current`, underline/✓ glyphs); text is in `rem` and the layout scrolls rather than hiding controls at 200 % text size or in landscape; `prefers-reduced-motion` disables all motion (deal, word cascade, network wake, star burst, Next ring — DECISIONS 69).
 
 **VoiceOver (iOS) and TalkBack (Android): not yet run** — no phone or simulator was available in the build environment. To be done on a real device before rollout and recorded here.
 

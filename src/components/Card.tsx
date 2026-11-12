@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { Fragment, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { BRAND_SPARKS, EASE, motionAllowed, type DealDirection } from "../motion.ts";
 import type { UiStrings } from "../i18n.ts";
 import { CATEGORIES, type Lang, type Question } from "../types.ts";
 
@@ -18,6 +19,8 @@ interface CardProps {
   favorite: boolean;
   onToggleFavorite: () => void;
   onSwipe: (direction: "next" | "prev") => void;
+  /** Direction of the last navigation; the deal animation enters from that side. */
+  dealDirection?: DealDirection;
   /** Buttons rendered under an exhaustion notice. */
   actions?: ReactNode;
 }
@@ -58,12 +61,74 @@ function useFitText(
   }, deps);
 }
 
-export function Card({ lang, strings, question, notice, present, favorite, onToggleFavorite, onSwipe, actions }: CardProps) {
+const SPARK_COUNT = 8;
+
+export function Card({ lang, strings, question, notice, present, favorite, onToggleFavorite, onSwipe, actions, dealDirection = "next" }: CardProps) {
+  const cardRef = useRef<HTMLElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const starRef = useRef<HTMLButtonElement>(null);
+  const [burst, setBurst] = useState(0);
   const textRef = useRef<HTMLParagraphElement>(null);
   const start = useRef<{ x: number; y: number; id: number } | null>(null);
   const text = question ? question[lang] : "";
   useFitText(bodyRef, textRef, [text, present, lang]);
+
+  const dealKey = question?.id ?? `notice:${notice?.kind ?? "none"}`;
+  // Deal + word cascade (decision 69): replays only when the card changes,
+  // never on a language switch; the settled card is identical to the static one.
+  useLayoutEffect(() => {
+    const card = cardRef.current;
+    if (!card || !motionAllowed()) return;
+    const from = dealDirection === "prev" ? -1 : 1;
+    const animations: Animation[] = [
+      card.animate(
+        [
+          { opacity: 0, transform: `translateX(${from * 36}px) rotate(${from * 1.6}deg) scale(.97)` },
+          { opacity: 1, transform: "none" },
+        ],
+        { duration: 460, easing: EASE },
+      ),
+    ];
+    const words = card.querySelectorAll<HTMLElement>(".card__word");
+    const step = Math.min(42, 520 / Math.max(1, words.length));
+    words.forEach((word, i) => {
+      animations.push(
+        word.animate(
+          [
+            { opacity: 0, filter: "blur(6px)", transform: "scale(.9)" },
+            { opacity: 1, filter: "blur(0)", transform: "none" },
+          ],
+          { duration: 520, delay: 140 + i * step, easing: EASE, fill: "backwards" },
+        ),
+      );
+    });
+    const pill = card.querySelector<HTMLElement>(".card__category");
+    if (pill) {
+      animations.push(
+        pill.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], {
+          duration: 420,
+          delay: 260 + words.length * step,
+          easing: EASE,
+          fill: "backwards",
+        }),
+      );
+    }
+    return () => animations.forEach((a) => a.cancel());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dealKey]);
+
+  const toggleFavorite = () => {
+    if (!favorite && motionAllowed()) {
+      setBurst((n) => n + 1);
+      starRef.current
+        ?.querySelector("svg")
+        ?.animate([{ transform: "scale(1)" }, { transform: "scale(1.45)" }, { transform: "scale(1)" }], {
+          duration: 420,
+          easing: EASE,
+        });
+    }
+    onToggleFavorite();
+  };
 
   const category = question ? CATEGORIES.find((c) => c.id === question.category) : undefined;
 
@@ -97,6 +162,7 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
 
   return (
     <section
+      ref={cardRef}
       className={`card${present ? " card--present" : ""}`}
       data-category={question && !noticeText ? question.category : "all"}
       onPointerDown={onPointerDown}
@@ -115,7 +181,19 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
           </div>
         ) : (
           <p key={question?.id ?? "none"} ref={textRef} className="card__text" lang={lang}>
-            {text}
+            {/* One readable text node for assistive tech; the animated words are hidden from it. */}
+            <span className="visually-hidden">{text}</span>
+            <span aria-hidden="true">
+              {text.split(/(\s+)/).map((part, i) =>
+                /^\s+$/.test(part) || part === "" ? (
+                  <Fragment key={i}>{part}</Fragment>
+                ) : (
+                  <span key={i} className="card__word">
+                    {part}
+                  </span>
+                ),
+              )}
+            </span>
           </p>
         )}
       </div>
@@ -127,11 +205,25 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
       {question && !present && !noticeText && (
         <button
           type="button"
+          ref={starRef}
           className={`btn btn--icon star${favorite ? " star--on" : ""}`}
           aria-pressed={favorite}
           aria-label={favorite ? strings.unfavorite : strings.favorite}
-          onClick={onToggleFavorite}
+          onClick={toggleFavorite}
         >
+          {burst > 0 && (
+            <span key={burst} className="star__burst" aria-hidden="true" onAnimationEnd={(e) => e.currentTarget === e.target && setBurst(0)}>
+              {Array.from({ length: SPARK_COUNT }, (_, i) => (
+                <i
+                  key={i}
+                  style={{
+                    ["--a" as string]: `${(360 / SPARK_COUNT) * i}deg`,
+                    ["--c" as string]: BRAND_SPARKS[i % BRAND_SPARKS.length],
+                  }}
+                />
+              ))}
+            </span>
+          )}
           <svg className="star__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path
               d="M12 2.8l2.78 5.64 6.22.9-4.5 4.39 1.06 6.2L12 17.0l-5.56 2.93 1.06-6.2L3 9.34l6.22-.9z"

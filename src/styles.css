@@ -288,11 +288,21 @@ ul {
  * sits stays deep blue, so white text keeps ≥ 7:1 contrast.
  */
 .main {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 0;
   padding: 0.25rem 1rem;
+}
+/* Network wake (decision 69): behind the opaque card, never behind the question. */
+.deal-wake {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 .card {
   /* Logo colours as light sources (not new palette colours). */
@@ -311,6 +321,7 @@ ul {
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .13 -.07'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
 
   position: relative;
+  z-index: 1;
   isolation: isolate;
   display: flex;
   flex-direction: column;
@@ -461,20 +472,10 @@ ul {
   overflow-wrap: anywhere;
   text-shadow: 0 1px 2px rgba(6, 3, 63, 0.35);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .card__text {
-    animation: card-in 160ms ease-out;
-  }
-}
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+/* Each word animates on its own (decision 69); inline-block so transforms apply.
+   The words are aria-hidden; a visually hidden copy carries the text. */
+.card__word {
+  display: inline-block;
 }
 .card__notice {
   width: 100%;
@@ -527,6 +528,43 @@ ul {
 }
 .star--on {
   color: var(--card-ink);
+}
+/* Spark burst when a question is starred (decision 69). */
+.star__burst {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  pointer-events: none;
+  animation: burst-life 700ms linear forwards;
+}
+.star__burst i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 6px var(--c);
+  animation: spark 640ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+@keyframes spark {
+  from {
+    opacity: 1;
+    transform: rotate(var(--a)) translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-26px) scale(0.4);
+  }
+}
+@keyframes burst-life {
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star__burst {
+    display: none;
+  }
 }
 
 /* ---- controls + footer ------------------------------------------------- */

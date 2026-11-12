@@ -2,6 +2,14 @@
 
 Internal Confidential · v1.4 · initiated-by: codex; v1.3–v1.4 entries claude-code
 
+## 2026-11-12 — v0.1.9 red-team fixes + v0.2.0 motion [NOU]
+
+- Invocation: Marius, "redteam", then "i agree with 1-3" and "study this artefact for design ideas … implement some very cool animations".
+- v0.1.9 (DECISIONS 68): white focus ring on cards, decision 67 inference withdrawn, long-question contrast gap recorded as open (worst 2.99:1, pre-existing), colleague's name removed from public records.
+- v0.2.0 (DECISIONS 69): deal, word cascade, network wake, star burst, Next ring; all off under reduced motion.
+- Verification: 95/95 tests, build + check-dist ok; reduced-motion and settled-contrast checks in headless Chrome.
+- History: the unpushed v0.1.8 commit e3d8df2 was rewritten as 4d69deb (Marius: "Rewrite and commit") so the colleague's name never reaches the public repo; v0.1.9 and v0.2.0 committed separately on top. Not pushed.
+
 ## 2026-11-12 — v0.1.8 brand alignment [NOU]
 
 - Invocation: Marius, "use the autonom branding skill"; audit put to him, he chose all four items plus the white logo (requested by a colleague).

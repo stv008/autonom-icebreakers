@@ -144,6 +144,16 @@ Sample content was re-released as `2026.09.1-sample` (`releaseSeq` 2, new immuta
     - **No personal names in this public repository's records**: the colleague who requested the white logo is no longer named in decision 67 or the change log (the repo is public, decision 38).
     - Rejected: "the record names a different logo file" (decision 67 correctly states the source); "class combinations override `.btn--primary`" (it is never combined with `.btn--icon` / `.btn--text`).
 
+## Motion (2026-11-12) — v0.2.0
+
+69. **Card motion inspired by the Autonom page "Prima sesiune deschisă AI" (Marius's request 2026-11-12: "study this artefact … implement some very cool animations").** Supersedes decision 37 (160 ms fade). Taken from that page: the easing `cubic-bezier(.2,.7,.2,1)`, staggered reveals, the green CTA ring and the brand-coloured particle network. Constraints kept: the settled card is unchanged (re-measured, same figures ±0.01 as decision 68); every effect is event-triggered and finite (WCAG 2.2.2), nothing moves behind the question once settled; under `prefers-reduced-motion: reduce` nothing animates (checked in headless Chrome: 0 animations, empty canvas, no sparks).
+    - **Deal** — the card enters from the side of travel (Next/swipe-left from the right, Back from the left): 36 px, 1.6° tilt, 0.97 scale, 460 ms. Not replayed by the RO/EN toggle; the card is not remounted, so focus stays where it was.
+    - **Word cascade** — each word comes into focus (opacity + blur 6 px + scale .9 → 1), staggered up to 42 ms per word and ≤ 520 ms in total; the category pill follows. Words are `aria-hidden` inline-blocks with a visually hidden copy of the full text; line breaks and fitted font size verified identical to plain text.
+    - **Network wake** — on each deal, 18–56 particles in #00C65E / #147BD1 / #753BBD (+ white or #10069F) leave the card's edges, link up within 120 px and fade out in 2.2 s on a canvas *behind* the opaque card (`src/components/DealWake.tsx`). Visible mainly on wide screens and in present mode.
+    - **Star burst** — 8 brand-coloured sparks and a 1.45× pop when a question is starred.
+    - **Next ring** — one green ripple (`0 → 18 px`, 700 ms) per press.
+    - Effects degrade to instant swaps where the Web Animations API or canvas is missing.
+
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
 38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.
