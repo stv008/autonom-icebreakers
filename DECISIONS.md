@@ -154,6 +154,10 @@ Sample content was re-released as `2026.09.1-sample` (`releaseSeq` 2, new immuta
     - **Next ring** — one green ripple (`0 → 18 px`, 700 ms) per press.
     - Effects degrade to instant swaps where the Web Animations API or canvas is missing.
 
+## Ambient background (2026-11-12) — v0.2.1
+
+70. **Whole-background network replaces the edge wake (Marius 2026-11-12: „arată ciudat animația doar în stânga … animă tot background-ul din spate, discret și încet; poate să dureze și mai mult”).** Supersedes the "Network wake" item of decision 69. `src/components/AmbientNetwork.tsx`: 16–70 particles (by screen area) in #00C65E / #147BD1 / #753BBD (+ white in dark, #10069F in light) spread over the full viewport, cruising at ≤ 0.16 px per frame, linked within 140 px (lines ≤ 0.16 alpha dark, 0.12 light; dots 0.7 / 0.55). Each deal gives a slight nudge in the direction of travel, fades the field in over 1.8 s, lets it drift for 15 s and fades it out over the last 4.5 s; a new deal extends it. It then stops completely — no loop between deals. Drawn on a fixed canvas at `z-index: -1` inside the isolated `.app`, behind all content; the opaque card keeps the question clear. Measured in headless Chrome: visible at 1, 4 and 9 s, empty at 15 s; nothing drawn under `prefers-reduced-motion: reduce`. Accepted trade-off: motion longer than 5 s without a pause control (WCAG 2.2.2) — it is decorative, stops by itself, and is off under reduced motion.
+
 ## Deliberately not done (see README "Non-goals" and the prompt's §2)
 
 38. No `git push` during the build (pushed afterwards on explicit CEO instruction, 2026-09-17, to a public GitHub repo with a Pages test deployment — see README "Test site"); no VoiceOver/TalkBack run (no device in the build environment — recorded in README as pending). Internal HTTPS hosting remains a Phase 2 task; GitHub Pages is a prototype convenience only.

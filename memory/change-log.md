@@ -2,6 +2,12 @@
 
 Internal Confidential · v1.4 · initiated-by: codex; v1.3–v1.4 entries claude-code
 
+## 2026-11-12 — v0.2.1 ambient background [NOU]
+
+- Invocation: Marius, the wake "looked odd only on the left"; asked for a slow, discreet animation of the whole background that may last longer.
+- Result: full-viewport particle network, 15 s per deal, then stops (DECISIONS 70).
+- Verification: 95/95 tests, build + check-dist ok; headless Chrome frames in light/dark at 1280 and 390 px, lifetime and reduced-motion checked.
+
 ## 2026-11-12 — v0.1.9 red-team fixes + v0.2.0 motion [NOU]
 
 - Invocation: Marius, "redteam", then "i agree with 1-3" and "study this artefact for design ideas … implement some very cool animations".

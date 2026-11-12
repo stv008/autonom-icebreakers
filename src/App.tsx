@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AboutSheet } from "./components/AboutSheet.tsx";
+import { AmbientNetwork } from "./components/AmbientNetwork.tsx";
 import { Card, type CardNotice } from "./components/Card.tsx";
 import { Controls } from "./components/Controls.tsx";
-import { DealWake } from "./components/DealWake.tsx";
 import { InstallHint } from "./components/InstallHint.tsx";
 import { PresentLayer } from "./components/PresentLayer.tsx";
 import { ScopePicker } from "./components/ScopePicker.tsx";
@@ -326,6 +326,7 @@ export function App() {
 
   return (
     <div className={`app${present ? " app--present" : ""}`}>
+      <AmbientNetwork dealKey={`${currentId ?? "none"}|${notice?.kind ?? ""}`} direction={dealDirection} />
       <PresentLayer active={present} />
       <TopBar lang={prefs.lang} strings={strings} present={present} onLang={setLang} onTogglePresent={togglePresent} />
 
@@ -352,7 +353,6 @@ export function App() {
       )}
 
       <main className="main">
-        <DealWake dealKey={`${currentId ?? "none"}|${notice?.kind ?? ""}`} direction={dealDirection} />
         {phase.status === "error" ? (
           <section className="card" data-category="all">
             <div className="card__body">

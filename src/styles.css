@@ -295,14 +295,18 @@ ul {
   min-height: 0;
   padding: 0.25rem 1rem;
 }
-/* Network wake (decision 69): behind the opaque card, never behind the question. */
-.deal-wake {
-  position: absolute;
+/* Ambient network (decision 70): the whole background, behind all content.
+   .app isolates a stacking context so z-index -1 sits above its background. */
+.app {
+  isolation: isolate;
+}
+.ambient-network {
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 .card {
   /* Logo colours as light sources (not new palette colours). */
