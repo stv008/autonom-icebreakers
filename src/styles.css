@@ -169,6 +169,10 @@ ul {
 :focus:not(:focus-visible) {
   outline: none;
 }
+/* On the blue card the --focus blue vanishes (1:1 light, ~3:1 dark): white ≥ 13.5:1 (decision 68). */
+.card :focus-visible {
+  outline-color: #ffffff;
+}
 
 /* ---- app shell --------------------------------------------------------- */
 .app {
