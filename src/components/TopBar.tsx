@@ -15,7 +15,7 @@ export function TopBar({ lang, strings, present, onLang, onTogglePresent }: TopB
       {!present && (
         <div className="topbar__brand">
           <picture>
-            <source media="(prefers-color-scheme: dark)" srcSet="./logo-autonom-dark.svg" />
+            <source media="(prefers-color-scheme: dark)" srcSet="./logo-autonom-white.svg" />
             <img className="logo" src="./logo-autonom.svg" alt="Autonom" width="553" height="187" decoding="async" />
           </picture>
           <h1 className="topbar__title">{strings.title}</h1>

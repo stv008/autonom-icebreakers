@@ -23,8 +23,8 @@
 }
 
 :root {
-  --blue: #10069f; /* Albastru Intens — chrome, wordmark, primary button */
-  --ink: #1a1a1a;
+  --blue: #10069f; /* Albastru Intens — chrome, selection, links */
+  --ink: #181716; /* Brand Book dark text (decision 67) */
   --muted: #5c5c6b;
   --line: #d9d9e3;
   --bg: #f4f4f9;
@@ -34,6 +34,11 @@
   --font: "Titillium Web", Arial, sans-serif;
   /* Derived: text colour on a --blue surface (not a new palette colour). */
   --on-blue: #ffffff;
+  /* Text in the --blue accent role; dark mode switches it to --ink (decision 67). */
+  --accent-text: var(--blue);
+  /* Primary CTA: Verde Proaspăt with dark text, 7.9:1 (Brand Book UI, decision 67). */
+  --cta: #00c65e;
+  --on-cta: #181716;
   --shadow: 0 1px 2px rgba(16, 6, 159, 0.06), 0 8px 24px rgba(16, 6, 159, 0.08);
   color-scheme: light dark;
 }
@@ -44,9 +49,12 @@
     --ink: #f2f2f7;
     --muted: #a9a9b8;
     --line: #2e2e44;
-    --blue: #8fa3ff;
-    --focus: #8fa3ff;
-    --on-blue: #0f0f1a;
+    /* Albastru Luminos: fills, borders, icons, focus (non-text ≥ 3:1). As text it
+       measures 4.33:1 on --bg, under AA, so text accents use --ink (decision 67). */
+    --blue: #147bd1;
+    --focus: #147bd1;
+    --on-blue: #ffffff;
+    --accent-text: var(--ink);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 }
@@ -122,9 +130,9 @@ ul {
   cursor: default;
 }
 .btn--primary {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: var(--on-blue);
+  background: var(--cta);
+  border-color: var(--cta);
+  color: var(--on-cta);
 }
 .btn--secondary {
   background: transparent;
@@ -143,7 +151,16 @@ ul {
 .btn--text {
   border-color: transparent;
   background: transparent;
-  color: var(--blue);
+  color: var(--accent-text);
+}
+/* Dark: --accent-text is body ink, so an underline keeps text buttons recognisable. */
+@media (prefers-color-scheme: dark) {
+  .btn--text {
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
 }
 :focus-visible {
   outline: 3px solid var(--focus);
@@ -213,6 +230,14 @@ ul {
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
+/* Dark: white on #147BD1 is 4.39:1, under AA — outline the selected item instead. */
+@media (prefers-color-scheme: dark) {
+  .segmented__item[aria-pressed="true"] {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 2px var(--blue);
+  }
+}
 
 /* ---- banner + hint ----------------------------------------------------- */
 .banner,
@@ -252,8 +277,9 @@ ul {
 /* ---- card -------------------------------------------------------------- */
 /*
  * Card surfaces (decision 45, CEO request 2026-09-25). Every card is the
- * Brand Book blue with soft light from the four official logo colours
- * (#10069F, #007cd5, #00c755, #8538c2) and one quiet line motif per category.
+ * Brand Book blue with soft light from the Brand Book palette
+ * (#10069F, #147BD1, #00C65E, #753BBD; decision 67, was the logo-file colours)
+ * and one quiet line motif per category.
  * The light and the motif stay in the corners; the centre where the question
  * sits stays deep blue, so white text keeps ≥ 7:1 contrast.
  */
@@ -267,9 +293,9 @@ ul {
 .card {
   /* Logo colours as light sources (not new palette colours). */
   --logo-blue: #10069f;
-  --logo-sky: #007cd5;
-  --logo-green: #00c755;
-  --logo-violet: #8538c2;
+  --logo-sky: #147bd1; /* Albastru Luminos */
+  --logo-green: #00c65e; /* Verde Proaspăt */
+  --logo-violet: #753bbd; /* Violet Vivant, accent only */
   --card-deep: #0a0470; /* --logo-blue darkened for depth */
   --card-ink: #ffffff;
   --card-soft: rgba(255, 255, 255, 0.78);
@@ -475,9 +501,9 @@ ul {
 }
 /* Buttons sitting on the blue card surface. */
 .card .btn--primary {
-  background: var(--card-ink);
-  border-color: var(--card-ink);
-  color: var(--logo-blue);
+  background: var(--cta);
+  border-color: var(--cta);
+  color: var(--on-cta);
 }
 .card .btn--secondary {
   border-color: rgba(255, 255, 255, 0.55);
@@ -616,7 +642,7 @@ ul {
 }
 /* Status is conveyed by glyph + text; colours stay within the brand tokens. */
 .status--ok {
-  color: var(--blue);
+  color: var(--accent-text);
   font-weight: 600;
 }
 .status--warn {

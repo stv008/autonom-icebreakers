@@ -1,6 +1,6 @@
 # Autonom Icebreakers
 
-Internal Confidential · app v0.1.7 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
+Internal Confidential · app v0.1.8 (prototype, real deck) · documentation v1.5 · 2026-10-02 · initiated-by: claude-code (v0.1.0–v0.1.4), codex (source docs)
 
 ## Start here: current release [NOU 2026-10-02, v1.4]
 
@@ -28,7 +28,7 @@ A single-screen Progressive Web App that replaces Autonom's physical ice-breaker
 - RO│EN toggle for questions and chrome; persists; never draws a new card.
 - Offline after the first visit; content updates arrive as versioned releases and activate on the next launch, never under your feet.
 - Dark mode follows the OS. Brand tokens from the Autonom Brand Book only.
-- Question cards carry a designed background per category, built only from the Brand Book blue and the four logo colours (decisions 45–48).
+- Question cards carry a designed background per category, built only from the Brand Book palette — #10069F, #147BD1, #00C65E, #753BBD (decisions 45–48, 67) — with the white negative logo on every card.
 - Every card carries the Autonom logo top-left and the category name bottom-left (derived card variant, pending Marketing — decisions 49–50, 59).
 - The three categories added in 2026.10.0 have their own card identities (decision 56). The app title is "Icebreakers" in both languages (decision 57).
 

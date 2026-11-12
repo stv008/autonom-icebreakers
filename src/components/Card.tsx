@@ -106,7 +106,7 @@ export function Card({ lang, strings, question, notice, present, favorite, onTog
       }}
     >
       {/* Logo top-left, category bottom-left (CEO request 2026-10-02, decision 59). */}
-      <img className="card__logo" src="./logo-autonom-card.svg" alt="" width="553" height="187" decoding="async" />
+      <img className="card__logo" src="./logo-autonom-white.svg" alt="" width="553" height="187" decoding="async" />
       <div className="card__body" ref={bodyRef}>
         {noticeText ? (
           <div className="card__notice">

@@ -1,6 +1,12 @@
 # Project change log
 
-Internal Confidential · v1.3 · initiated-by: codex; v1.3 entry claude-code
+Internal Confidential · v1.4 · initiated-by: codex; v1.3–v1.4 entries claude-code
+
+## 2026-11-12 — v0.1.8 brand alignment [NOU]
+
+- Invocation: Marius, "use the autonom branding skill"; audit put to him, he chose all four items plus the white logo (requested by a colleague).
+- Result: white logo on cards + dark top bar, Brand Book card accents, ink `#181716`, green primary CTA, dark accent `#147BD1` (DECISIONS 67).
+- Verification: 95/95 tests, build + check-dist ok, card contrast worst 9.47:1 (36 measurements), visual check light/dark 390 px. Not committed, not deployed.
 
 ## 2026-10-02 — Sheet sync + content 2026.10.3 [NOU]
 
