@@ -8,3 +8,6 @@ dev-dist
 session-logs/
 outputs/
 content/SOURCES.private.md
+
+# Internal working documents (decisions, change log, reviews, release notes): local only
+internal/
